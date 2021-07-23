@@ -2,6 +2,7 @@ alert("CONNECTED");
 // var button = document.querySelector("#button");
 //
 // button.addEventListener('click', doThing);
+canvas = document.querySelector('#canvas');
 
 function doThing(){
 
@@ -21,7 +22,7 @@ function animate(){
   requestAnimationFrame(animate);
 }
 
-class Box(){
+class Box{
 
   constructor(){
     this.c = Math.random() * 255;
