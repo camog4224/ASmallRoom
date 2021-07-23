@@ -7,6 +7,21 @@ var div = document.createElement("div");
 div.appendChild(button);
 document.body.appendChild(div);
 
+var table = document.createElement("TABLE");
+for(i = 0; i < 5; i++){
+  addRow();
+}
+document.body.appendChild(table);
+function addRow(){
+  var row = table.insertRow(0);
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  cell1.innerHTML = "NAME";
+  cell2.innerHTML = "VALUE";
+}
+
+
+
 
 
 
