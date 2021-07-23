@@ -1,3 +1,20 @@
-table, th{
+#table{
   border: 1px solid black;
+  width: 25%;
+  /* float: right */
+}
+
+#left{
+  float:left;
+  background:blue;
+}
+
+#middle{
+  float:left;
+  background:red;
+}
+
+#right{
+  float:right;
+  background:green;
 }

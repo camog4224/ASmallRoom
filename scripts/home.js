@@ -1,17 +1,16 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
-
-var button = document.createElement("button");
-button.innerHTML = "BUTTON";
-var div = document.createElement("div");
-div.appendChild(button);
-document.body.appendChild(div);
+var leftSide  = document.querySelector("#left");
+var middleSide = document.querySelector("#middle");
+var rightSide = document.querySelector("#right");
 
 var table = document.createElement("TABLE");
+table.setAttribute("id","table");
 for(i = 0; i < 5; i++){
   addRow();
 }
-document.body.appendChild(table);
+
+
 function addRow(){
   var row = table.insertRow(0);
   var cell1 = row.insertCell(0);
@@ -19,10 +18,15 @@ function addRow(){
   cell1.innerHTML = "NAME";
   cell2.innerHTML = "VALUE";
 }
+rightSide.appendChild(table);
 
 
-
-
+function makeElementInDiv(elementName){
+  var div = document.createElement("div");
+  var element = document.createElement(elementName);
+  div.appendChild(element);
+  return divWithElement
+}
 
 
 // button.addEventListener('click', doThing);
