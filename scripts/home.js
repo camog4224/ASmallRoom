@@ -1,13 +1,25 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
+
 var leftSide  = document.querySelector("#left");
 var middleSide = document.querySelector("#middle");
 var rightSide = document.querySelector("#right");
 
 var table = document.createElement("TABLE");
 table.setAttribute("id","table");
-for(i = 0; i < 5; i++){
+for(var i = 0; i < 5; i++){
   addRow();
+}
+
+// console.log(superInfo.Levels);
+// console.log(JSON.stringify(superInfo.Levels));
+// console.log(superInfo.Levels[0]);
+// console.log(Object.keys(superInfo.Levels[0])[0]);
+
+for(var i = 0; i < superInfo.Levels.length; i++){
+  var tempText = Object.keys(superInfo.Levels[i])[0];
+  makeAddEventText(tempText);
+
 }
 
 
@@ -25,7 +37,14 @@ function makeElementInDiv(elementName){
   var div = document.createElement("div");
   var element = document.createElement(elementName);
   div.appendChild(element);
-  return divWithElement
+  return divWithElement;
+}
+
+function makeAddEventText(text){
+  var p = document.createElement("p");
+  var t = document.createTextNode(text);
+  p.append(t);
+  leftSide.append(p);
 }
 
 
