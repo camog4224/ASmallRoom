@@ -15,10 +15,11 @@ for(var i = 0; i < 5; i++){
 // console.log(JSON.stringify(superInfo.Levels));
 // console.log(superInfo.Levels[0]);
 // console.log(Object.keys(superInfo.Levels[0])[0]);
-
-for(var i = 0; i < superInfo.Levels.length; i++){
+var infoLen = superInfo.Levels.length;
+for(var i = 0; i < infoLen; i++){
   var tempText = Object.keys(superInfo.Levels[i])[0];
-  makeAddEventText(tempText);
+  var opacityIncrement = 1./infoLen;
+  makeAddEventText(tempText, (infoLen-i)*opacityIncrement);
 
 }
 
@@ -40,8 +41,9 @@ function makeElementInDiv(elementName){
   return divWithElement;
 }
 
-function makeAddEventText(text){
+function makeAddEventText(text, trans){
   var p = document.createElement("p");
+  p.style.opacity = trans;
   var t = document.createTextNode(text);
   p.append(t);
   leftSide.append(p);

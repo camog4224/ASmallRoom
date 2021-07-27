@@ -25,3 +25,16 @@
   height: 50%;
   background:#d4a4a4;
 }
+
+#popup{
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 50%;
+  height: 35%;
+  z-index: 2;
+  background:#ffffff;
+  box-shadow: 10px 10px 5px #bbbbbb;
+}
