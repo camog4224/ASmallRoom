@@ -1,14 +1,21 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
 
+setTimeout(turnOnPopup, 2000);
+
 var leftSide  = document.querySelector("#left");
 var middleSide = document.querySelector("#middle");
 var rightSide = document.querySelector("#right");
+var popup = document.querySelector("#popup");
 
 var table = document.createElement("TABLE");
 table.setAttribute("id","table");
 for(var i = 0; i < 5; i++){
   addRow();
+}
+
+function turnOnPopup(){
+  popup.classList.add('poppedUp');
 }
 
 // console.log(superInfo.Levels);

@@ -24,6 +24,7 @@
   width: 25%;
   height: 50%;
   background:#d4a4a4;
+  transition: background 2s;
 }
 
 #popup{
@@ -31,10 +32,18 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
+  visibility: hidden;
+  transition: all 1s;
+  opacity: 0;
   width: 50%;
   height: 35%;
   z-index: 2;
   background:#ffffff;
   box-shadow: 10px 10px 5px #bbbbbb;
+}
+
+#popup.poppedUp{
+  visibility: visible;
+  opacity: 1;
+  /* background:#aaaaaa; */
 }
