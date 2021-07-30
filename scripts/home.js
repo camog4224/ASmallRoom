@@ -21,16 +21,13 @@ stokeFire.addEventListener('click', stokeFireFunc);
 var onFire = false;
 
 var resourceDict = {
-  "wood" : 5,
+  "wood" : 20,
   "charcoal" : 5,
   "stone" : 5
 };
 
 function updateResources(){
-  // for(var i = 0; i < table.rows.length; i++){
-  //
-  // }
-  // var resD = Object.keys(resourceDict);
+
   var index = 0;
   for(var key in resourceDict){
     // console.log(key);
@@ -49,12 +46,14 @@ function startFireFunc(){
     updateResources();
     onFire = true;
     fire = setTimeout(smother, 5000);
-    console.log("FIRE STARTED")
+    // console.log("FIRE STARTED");
+      makeAddEventText("FIRE STARTED");
   }
 }
 
 function smother(){
-  console.log("FIRE WENT OUT");
+  // console.log("FIRE WENT OUT");
+    makeAddEventText("FIRE WENT OUT");
   resourceDict.charcoal++;
   updateResources();
   onFire = false;
@@ -68,7 +67,8 @@ function stokeFireFunc(){
     updateResources();
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
-    console.log("STOKED");
+    // console.log("STOKED");
+    makeAddEventText("STOKED");
   }
 }
 
@@ -94,13 +94,14 @@ function turnOnPopup(){
 // console.log(JSON.stringify(superInfo.Levels));
 // console.log(superInfo.Levels[0]);
 // console.log(Object.keys(superInfo.Levels[0])[0]);
-var infoLen = superInfo.Levels.length;
-for(var i = 0; i < infoLen; i++){
-  var tempText = Object.keys(superInfo.Levels[i])[0];
-  var opacityIncrement = 1./infoLen;
-  makeAddEventText(tempText, (infoLen-i)*opacityIncrement);
 
-}
+// var infoLen = superInfo.Levels.length;
+// for(var i = 0; i < infoLen; i++){
+//   var tempText = Object.keys(superInfo.Levels[i])[0];
+//   var opacityIncrement = 1./infoLen;
+//   makeAddEventText(tempText, (infoLen-i)*opacityIncrement);
+//
+// }
 
 
 function addRow(name, val){
@@ -121,12 +122,22 @@ function makeElementInDiv(elementName){
   return divWithElement;
 }
 
-function makeAddEventText(text, trans){
+var totalHistoryItems = 10;
+
+function makeAddEventText(text){
   var p = document.createElement("p");
-  p.style.opacity = trans;
+  // p.style.opacity = (totalHistoryItems-numEvents)*(1./totalHistoryItems);
   var t = document.createTextNode(text);
   p.append(t);
-  leftSide.append(p);
+  leftSide.prepend(p);
+  var numEvents = leftSide.children.length;
+  for(var i = 0; i < numEvents; i++){
+    leftSide.childNodes[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
+  }
+  if(numEvents > totalHistoryItems){
+    leftSide.removeChild(leftSide.lastChild);
+    console.log("DELETED LAST");
+  }
 }
 
 
