@@ -33,12 +33,14 @@ function updateResources(){
   // var resD = Object.keys(resourceDict);
   var index = 0;
   for(var key in resourceDict){
-    console.log(key);
+    // console.log(key);
     table.rows[index].cells[1].innerHTML = resourceDict[key];
     // var value = resourceDict[temp];
     index++;
   }
 }
+
+var fire;
 
 function startFireFunc(){
   // alert("FIRE STARTED");
@@ -46,7 +48,16 @@ function startFireFunc(){
     resourceDict.wood--;
     updateResources();
     onFire = true;
+    fire = setTimeout(smother, 5000);
+    console.log("FIRE STARTED")
   }
+}
+
+function smother(){
+  console.log("FIRE WENT OUT");
+  resourceDict.charcoal++;
+  updateResources();
+  onFire = false;
 }
 
 function stokeFireFunc(){
@@ -55,6 +66,9 @@ function stokeFireFunc(){
     resourceDict.wood--;
 
     updateResources();
+    clearTimeout(fire);
+    fire = setTimeout(smother, 5000);
+    console.log("STOKED");
   }
 }
 
@@ -90,7 +104,7 @@ for(var i = 0; i < infoLen; i++){
 
 
 function addRow(name, val){
-  console.log(table.rows.length);
+  // console.log(table.rows.length);
   var row = table.insertRow(-1);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);

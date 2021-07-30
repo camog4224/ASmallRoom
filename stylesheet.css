@@ -1,6 +1,12 @@
 /* #resourceTable{
 
 } */
+
+.button{
+width: 100px;
+height: 30px;
+}
+
 .border{
   border: 1px solid black;
 }
