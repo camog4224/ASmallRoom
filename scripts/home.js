@@ -40,16 +40,40 @@ function updateResources(){
 var fire;
 
 function startFireFunc(){
-  // alert("FIRE STARTED");
-  if(onFire == false && resourceDict.wood > 0){
+
+
+
+  if(onFire == false && resourceDict.wood > 0 && startFire.classList.contains("disabled") == false){
     resourceDict.wood--;
     updateResources();
     onFire = true;
     fire = setTimeout(smother, 5000);
     // console.log("FIRE STARTED");
       makeAddEventText("FIRE STARTED");
+      // startFire.classList.add("cooldown");
+      cooldownButton(startFire, 20);
   }
 }
+
+function cooldownButton(button, cooldownTime){
+  var cooldownDiv = document.createElement("DIV");
+  cooldownDiv.classList.add("cooldown");
+  cooldownDiv.style.setProperty("--timeToCooldown", cooldownTime + "s");
+  cooldownDiv.addEventListener("animationend", function(){
+    console.log("REMOVED COOLDOWN DIV");
+    cooldownDiv.remove();
+    button.classList.remove("disabled");
+  });
+  button.appendChild(cooldownDiv);
+  button.classList.add("disabled");
+
+}
+
+// function deleteCooldown(cooldownDiv){
+//   console.log("DELETE ME");
+//   cooldownDiv.remove();
+//
+// }
 
 function smother(){
   // console.log("FIRE WENT OUT");
@@ -61,7 +85,7 @@ function smother(){
 
 function stokeFireFunc(){
   // alert("FIRE STOKED");
-  if(onFire == true && resourceDict.wood > 0){
+  if(onFire == true && resourceDict.wood > 0 && stokeFire.classList.contains("disabled") == false){
     resourceDict.wood--;
 
     updateResources();
@@ -69,6 +93,8 @@ function stokeFireFunc(){
     fire = setTimeout(smother, 5000);
     // console.log("STOKED");
     makeAddEventText("STOKED");
+    // stokeFire.classList.add("cooldown");
+    cooldownButton(stokeFire, 1);
   }
 }
 
@@ -136,7 +162,7 @@ function makeAddEventText(text){
   }
   if(numEvents > totalHistoryItems){
     leftSide.removeChild(leftSide.lastChild);
-    console.log("DELETED LAST");
+    // console.log("DELETED LAST");
   }
 }
 

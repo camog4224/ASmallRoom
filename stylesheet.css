@@ -1,10 +1,31 @@
-/* #resourceTable{
-
-} */
 
 .button{
 width: 100px;
 height: 30px;
+position: relative;
+background:white;
+z-index: 3;
+}
+
+.cooldown{
+  z-index: -1;
+  position:absolute;
+  background: #777777;
+  height:100%;
+  width:100%;
+  --timeToCooldown: 5s;
+  top: 0;
+  bottom:0;
+  left:0;
+  right:0;
+  animation: cooldown var(--timeToCooldown) linear forwards;
+  /* animation: cooldown var(--timeToCooldown) linear; */
+
+}
+
+@keyframes cooldown {
+  from {width:100%;}
+  to {width:0%;}
 }
 
 .border{
@@ -44,7 +65,7 @@ height: 30px;
   opacity: 0;
   width: 50%;
   height: 35%;
-  z-index: 2;
+  z-index: 5;
   background:#ffffff;
   box-shadow: 10px 10px 5px #bbbbbb;
 }
