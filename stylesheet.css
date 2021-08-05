@@ -5,6 +5,7 @@ height: 30px;
 position: relative;
 background:white;
 z-index: 3;
+user-select: none;
 }
 
 .cooldown{
@@ -19,8 +20,25 @@ z-index: 3;
   left:0;
   right:0;
   animation: cooldown var(--timeToCooldown) linear forwards;
-  /* animation: cooldown var(--timeToCooldown) linear; */
 
+}
+
+#fireDisplay{
+  float:right;
+  width:50%;
+  height:25%;
+  --timeLeft: 0s;
+  background: grey;
+}
+
+.runFireAnimation{
+  animation: fireAnimation var(--timeLeft, 0s) linear forwards;
+}
+
+@keyframes fireAnimation{
+  0%{background:red}
+  50%{background:yellow}
+  100{background:grey}
 }
 
 @keyframes cooldown {

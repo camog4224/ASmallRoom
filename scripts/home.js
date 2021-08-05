@@ -3,6 +3,8 @@
 
 setTimeout(turnOnPopup, 2000);
 
+
+
 // setInterval(checkResources,100);
 
 var leftSide  = document.querySelector("#left");
@@ -13,10 +15,12 @@ var popup = document.querySelector("#popup");
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
 
-var woodPile = document.querySelector("#wood");
+var fireDisplay = document.querySelector("#fireDisplay");
+
 
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
+// fireDisplay.addEventListener("animationend", flameAnimation());
 
 var onFire = false;
 
@@ -41,9 +45,7 @@ var fire;
 
 function startFireFunc(){
 
-
-
-  if(onFire == false && resourceDict.wood > 0 && startFire.classList.contains("disabled") == false){
+  if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == false){
     resourceDict.wood--;
     updateResources();
     onFire = true;
@@ -52,6 +54,7 @@ function startFireFunc(){
       makeAddEventText("FIRE STARTED");
       // startFire.classList.add("cooldown");
       cooldownButton(startFire, 20);
+      flareFlame(5);
   }
 }
 
@@ -60,7 +63,7 @@ function cooldownButton(button, cooldownTime){
   cooldownDiv.classList.add("cooldown");
   cooldownDiv.style.setProperty("--timeToCooldown", cooldownTime + "s");
   cooldownDiv.addEventListener("animationend", function(){
-    console.log("REMOVED COOLDOWN DIV");
+    // console.log("REMOVED COOLDOWN DIV");
     cooldownDiv.remove();
     button.classList.remove("disabled");
   });
@@ -69,11 +72,17 @@ function cooldownButton(button, cooldownTime){
 
 }
 
-// function deleteCooldown(cooldownDiv){
-//   console.log("DELETE ME");
-//   cooldownDiv.remove();
-//
-// }
+function flareFlame(timeToFlare){
+  fireDisplay.style.setProperty("--timeLeft", timeToFlare + "s");
+  flameAnimation();
+}
+
+function flameAnimation(){
+
+  fireDisplay.classList.remove("runFireAnimation");
+  void fireDisplay.offsetWidth;
+  fireDisplay.classList.add("runFireAnimation");
+}
 
 function smother(){
   // console.log("FIRE WENT OUT");
@@ -83,9 +92,13 @@ function smother(){
   onFire = false;
 }
 
+function buttonClickable(button){
+  return button.classList.contains("disabled");
+}
+
 function stokeFireFunc(){
   // alert("FIRE STOKED");
-  if(onFire == true && resourceDict.wood > 0 && stokeFire.classList.contains("disabled") == false){
+  if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == false){
     resourceDict.wood--;
 
     updateResources();
@@ -95,6 +108,7 @@ function stokeFireFunc(){
     makeAddEventText("STOKED");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
+    flareFlame(5);
   }
 }
 
