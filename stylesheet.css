@@ -24,10 +24,17 @@ user-select: none;
 }
 
 #fireDisplay{
-  float:right;
-  width:50%;
-  height:25%;
+  /* float:right; */
+  /* margin:auto; */
+  top: 50px;
+  right: 50px;
+  position:absolute;
+  width: 15%;
+  border-radius: 100%;
+  aspect-ratio: 1 / 1;
   --timeLeft: 0s;
+  border-color: grey;
+  border-width: thick;
   background: grey;
 }
 
@@ -36,9 +43,9 @@ user-select: none;
 }
 
 @keyframes fireAnimation{
-  0%{background:red}
-  50%{background:yellow}
-  100{background:grey}
+  0%{background:red;transform: scale(2);}
+  50%{background:yellow;}
+  100%{background:grey;transform: scale(1);}
 }
 
 @keyframes cooldown {
@@ -55,11 +62,12 @@ user-select: none;
   width: 35%;
   background:#ad7e8f;
   height: 50%;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 #middle{
   float:left;
+  position: relative;
   width: 25%;
   height: 50%;
   background:#dede95;
@@ -70,7 +78,7 @@ user-select: none;
   width: 25%;
   height: 50%;
   background:#d4a4a4;
-  transition: background 2s;
+  /* transition: background 2s; */
 }
 
 #popup{

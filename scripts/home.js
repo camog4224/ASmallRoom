@@ -22,6 +22,8 @@ startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
+var numCharcoalStacked = 0;
+
 var onFire = false;
 
 var resourceDict = {
