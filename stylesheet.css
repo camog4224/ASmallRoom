@@ -113,3 +113,17 @@ user-select: none;
   display: block;
   /* background:#aaaaaa; */
 }
+
+#eventsToggleDiv{
+  position: absolute;
+  bottom:0;
+}
+
+.runEventMissed{
+  animation: eventMissed 3s linear;
+}
+
+@keyframes eventMissed{
+  0%{background:red;}
+  100%{background: white;}
+}

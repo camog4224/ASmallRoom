@@ -1,7 +1,7 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
 
-setTimeout(turnOnPopup, 2000);
+setTimeout(turnOnPopup, 4000);
 
 
 
@@ -18,6 +18,12 @@ var stokeFire = document.querySelector("#stokeFire");
 
 var fireDisplay = document.querySelector("#fireDisplay");
 
+var eventsToggle = document.querySelector("#eventsToggle");
+var eventsToggleDiv = document.querySelector("#eventsToggleDiv");
+eventsToggleDiv.addEventListener("animationend", function(){
+
+  eventsToggleDiv.classList.remove("runEventMissed");
+});
 
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
@@ -130,9 +136,14 @@ for(var i = 0; i < res.length; i++){
 }
 
 function turnOnPopup(){
-  popup.classList.add('poppedUp');
-  cover.classList.add('poppedUp');
-  setTimeout(turnOffPopup, 2000);
+  if(eventsToggle.checked == false){
+    popup.classList.add('poppedUp');
+    cover.classList.add('poppedUp');
+    setTimeout(turnOffPopup, 2000);
+  }else{
+    eventsToggleDiv.classList.add('runEventMissed');
+  }
+
 }
 
 function turnOffPopup(){
