@@ -11,6 +11,7 @@ var leftSide  = document.querySelector("#left");
 var middleSide = document.querySelector("#middle");
 var rightSide = document.querySelector("#right");
 var popup = document.querySelector("#popup");
+var cover = document.querySelector("#cover");
 
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
@@ -28,8 +29,8 @@ var onFire = false;
 
 var resourceDict = {
   "wood" : 20,
-  "charcoal" : 5,
-  "stone" : 5
+  "charcoal" : 0,
+  "stone" : 0
 };
 
 function updateResources(){
@@ -57,6 +58,7 @@ function startFireFunc(){
       // startFire.classList.add("cooldown");
       cooldownButton(startFire, 20);
       flareFlame(5);
+      numCharcoalStacked = 1;
   }
 }
 
@@ -89,7 +91,7 @@ function flameAnimation(){
 function smother(){
   // console.log("FIRE WENT OUT");
     makeAddEventText("FIRE WENT OUT");
-  resourceDict.charcoal++;
+  resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
   onFire = false;
 }
@@ -111,6 +113,7 @@ function stokeFireFunc(){
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
     flareFlame(5);
+    numCharcoalStacked++;
   }
 }
 
@@ -128,6 +131,13 @@ for(var i = 0; i < res.length; i++){
 
 function turnOnPopup(){
   popup.classList.add('poppedUp');
+  cover.classList.add('poppedUp');
+  setTimeout(turnOffPopup, 2000);
+}
+
+function turnOffPopup(){
+  popup.classList.remove('poppedUp');
+  cover.classList.remove('poppedUp');
 }
 
 // console.log(resourceDict);
