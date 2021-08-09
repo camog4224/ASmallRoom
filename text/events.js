@@ -26,7 +26,7 @@ individual : useful | stranger : harmful | drifter : could be either
 
 
 also maybe have an algorith to find out how "useful" a person is by giving +5 score to the word "individual" in their prompt and like -3 for the word "hooded"
-and an overall score for either if they will ever backstab, or maybe they shift to a new profession 
+and an overall score for either if they will ever backstab, or maybe they shift to a new profession
 */
 
 var randomEvents =
@@ -41,7 +41,9 @@ var randomEvents =
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
             "FunctionName" : "SingleWeakOne",
-            "Alignment" : "Good"
+            "Alignment" : "Good",
+            "EnterMessage" : "The individual thanks you for your generocity",
+            "LeaveMessage" : "The individual hobbles away with a pained expression"
           },
           {
             "Level" : "Weak",
@@ -49,7 +51,9 @@ var randomEvents =
             "Accept" : "Accept the stranger",
             "Decline" : "Turn them away",
             "Function" : "SingleWeakTwo",
-            "Alignment" : "Evil"
+            "Alignment" : "Evil",
+            "EnterMessage" : "The stranger happily grins and rushes past you to get acquainted",
+            "LeaveMessage" : "The stanger turns away and seems to mutter a curse before leaving"
           },
           {
             "Level" : "Weak",
@@ -57,7 +61,9 @@ var randomEvents =
             "Accept" : "Accept the drifter",
             "Decline" : "Turn them away",
             "Function" : "SingleWeakThree",
-            "Alignment" : "Neutral"
+            "Alignment" : "Neutral",
+            "EnterMessage" : "The drifter nods and starts accessing where they will be staying",
+            "LeaveMessage" : "The drifter grimly nods and walks away"
           }
 
         ]
@@ -70,7 +76,9 @@ var randomEvents =
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
             "Function" : "SingleCompetantOne",
-            "Alignment" : "Good"
+            "Alignment" : "Good",
+            "EnterMessage" : "The individual grunts a thanks and lumbers past to see his quarters",
+            "LeaveMessage" : "The individual grunts dissaprovingly and turns back"
           },
           {
             "Level" : "Competant",
@@ -78,15 +86,19 @@ var randomEvents =
             "Accept" : "Accept the stranger",
             "Decline" : "Turn them away",
             "Function" : "SingleCompetantTwo",
-            "Alignment" : "Bad"
+            "Alignment" : "Bad",
+            "EnterMessage" : "The stranger's eye light up and they hear your decision, they thank you and rush past you",
+            "LeaveMessage" : "The stranger's eyes narrow and they scan the area and then walk away"
           },
           {
             "Level" : "Competant",
-            "Prompt" : "A drifter approaches you claiming to know how to do first aid, they ask for people to help",
+            "Prompt" : "A drifter approaches you claiming to know how to do first aid, they ask for a place to help people",
             "Accept" : "Accept the drifter",
             "Decline" : "Turn them away",
             "Function" : "SingleCompetantThree",
-            "Alignment" : "Neutral"
+            "Alignment" : "Neutral",
+            "EnterMessage" : "The drifter nods with approval and immediately starts asking for medical supplies to help the wounded",
+            "LeaveMessage" : "The drifter gives a disheartening shake of their head and walks away"
           }
 
         ]
@@ -99,15 +111,19 @@ var randomEvents =
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
             "Function" : "SingleStrongOne",
-            "Alignment" : "Good"
+            "Alignment" : "Good",
+            "EnterMessage" : "The individual makes a deep bow and promptly takes stock of area",
+            "LeaveMessage" : "The individual make a terse nod and darts away"
           },
           {
             "Level" : "Strong",
-            "Prompt" : "A stranger approaches you saying that they have worked as an artisan for many years though a famine hit and now they are looking for a new place to work and stay",
+            "Prompt" : "A stranger approaches you saying that they have worked as an artisan for many years though a famine hit their village and now they are looking for a new place to work and stay",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
             "Function" : "SingleStrongTwo",
-            "Alignment" : "Bad"
+            "Alignment" : "Bad",
+            "EnterMessage" : "The stranger blinks away tears of joy and firmly shakes you hand then goes to find his workplace",
+            "LeaveMessage" : "The stranger scowls and openly curses you, says something in a different language and grudgingly leaves"
           },
           {
             "Level" : "Strong",
@@ -115,7 +131,9 @@ var randomEvents =
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
             "Function" : "SingleStrongThree",
-            "Alignment" : "Neutral"
+            "Alignment" : "Neutral",
+            "EnterMessage" : "The drifter gives a quick nod then starts towards his residence",
+            "LeaveMessage" : "The drifter's face and body language maintain completely neutral, even as they turn and walk away"
           }
 
         ]

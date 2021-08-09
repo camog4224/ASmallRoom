@@ -93,6 +93,7 @@ user-select: none;
 }
 
 #popup{
+  user-select: none;
   position:absolute;
   top: 50%;
   left: 50%;
@@ -117,24 +118,33 @@ user-select: none;
 #prompt{
   /* position: absolute; */
   text-align: center;
+  font-size: 35px;
+  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  user-select: none;
 }
 
 #accept{
   position: absolute;
   text-align: center;
+  font-size: 20px;
   width: 20%;
   height: 10%;
   bottom: 10%;
   left: 10%;
+  user-select: none;
 }
 
 #decline{
   position: absolute;
   text-align: center;
+  font-size: 20px;
   width: 20%;
   height: 10%;
   bottom: 10%;
   right: 10%;
+  user-select: none;
 }
 
 #eventsToggleDiv{

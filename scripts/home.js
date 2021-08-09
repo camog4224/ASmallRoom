@@ -1,9 +1,14 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
 
-setTimeout(fillPopupWithEventInfo, 4000);
+setTimeout(moveToNextEvent, 1000);
+var numEventsQueded = 5;
 
 
+
+/*
+maybe have some events trigger other events, like if you decline a "strong" npc they might ask again but more aggresivly
+*/
 
 // setInterval(checkResources,100);
 
@@ -13,12 +18,9 @@ var rightSide = document.querySelector("#right");
 
 var popup = document.querySelector("#popup");
 var prompt = document.querySelector("#prompt");
-var accept = document.querySelector("#accept");
-accept.addEventListener('click', acceptPrompt);
-var decline = document.querySelector("#decline");
-decline.addEventListener('click', declinePrompt);
 var cover = document.querySelector("#cover");
-
+var accept = document.querySelector("#accept");
+var decline = document.querySelector("#decline");
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
 
@@ -31,9 +33,16 @@ eventsToggleDiv.addEventListener("animationend", function(){
   eventsToggleDiv.classList.remove("runEventMissed");
 });
 
+accept.addEventListener('click', function(){
+  promptResolution(accept);
+});
+decline.addEventListener('click', function(){
+  promptResolution(decline);
+});
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
+
 
 var numCharcoalStacked = 0;
 
@@ -145,46 +154,50 @@ function turnOnPopup(){
   if(eventsToggle.checked == false){
     popup.classList.add('poppedUp');
     cover.classList.add('poppedUp');
-    // setTimeout(turnOffPopup, 1000);
   }else{
     eventsToggleDiv.classList.add('runEventMissed');
+    promptResolution(decline);
   }
 
 }
 
 function turnOffPopup(){
+  // console.log(cover);
   popup.classList.remove('poppedUp');
   cover.classList.remove('poppedUp');
+  moveToNextEvent();
+}
+
+function moveToNextEvent(){
+  fillPopupWithEventInfo();
 }
 
 function fillPopupWithEventInfo(){
-  var numLevels = randomEvents.Single.length;
-  var choseLevel = Math.floor(Math.random()*numLevels);
-  var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
-  var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
-  var chosenPerson = Math.floor(Math.random()*numDifPeople);
-  var personData = randomEvents.Single[choseLevel][levelName][chosenPerson];
-  console.log(personData);
-  prompt.innerHTML = personData.Prompt;
-  accept.innerHTML = personData.Accept
-  decline.innerHTML = personData.Decline
-  turnOnPopup();
+  if(numEventsQueded >= 1){
+    numEventsQueded--;
+    var numLevels = randomEvents.Single.length;
+    var choseLevel = Math.floor(Math.random()*numLevels);
+    var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
+    var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
+    var chosenPerson = Math.floor(Math.random()*numDifPeople);
+    var personData = randomEvents.Single[choseLevel][levelName][chosenPerson];
+    console.log(personData);
+    prompt.innerHTML = personData.Prompt;
+    accept.innerHTML = personData.Accept;
+    decline.innerHTML = personData.Decline;
+    accept.setAttribute("data-response", personData.EnterMessage);
+    decline.setAttribute("data-response", personData.LeaveMessage);
+    turnOnPopup();
+  }
 }
 
-function fillAccept(){
-
-}
-
-function acceptPrompt(){
-
-}
-
-function fillDecline(){
-
-}
-
-function declinePrompt(){
-
+function promptResolution(buttonChosen){
+  turnOffPopup();
+  console.log("DONE");
+  console.log(buttonChosen);
+  var info = buttonChosen.getAttribute("data-response");
+  console.log(info);
+  makeAddEventText(info);
 }
 
 
