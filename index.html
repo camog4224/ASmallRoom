@@ -4,7 +4,7 @@
   </head>
   <body>
     <div id = "eventsToggleDiv">
-      <input type = "checkbox" id = "eventsToggle" name = "eventsToggle" value = "eventsToggle" checked>
+      <input type = "checkbox" id = "eventsToggle" name = "eventsToggle" value = "eventsToggle">
       <label for = "eventsToggle">Check to toggle off event pop ups</label>
     </div>
     <div id = "left">
@@ -24,9 +24,13 @@
       </div>
     </div>
     <div id = "right">
-      VALUES
+      RESOURCES
     </div>
-    <div id = "popup">THIS IS A POP UP</div>
+    <div id = "popup">
+      <div id = "prompt" class = "border">PROMPT</div>
+      <div id = "accept" class = "border">ACCEPT</div>
+      <div id = "decline" class = "border">DECLINE</div>
+    </div>
     <div id = "cover"></div>
     <!-- <canvas id="canvas" width="150" height="150"></canvas> -->
     <script src="text/events.js" type = "text/javascript"></script>

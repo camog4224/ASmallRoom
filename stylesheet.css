@@ -114,6 +114,29 @@ user-select: none;
   /* background:#aaaaaa; */
 }
 
+#prompt{
+  /* position: absolute; */
+  text-align: center;
+}
+
+#accept{
+  position: absolute;
+  text-align: center;
+  width: 20%;
+  height: 10%;
+  bottom: 10%;
+  left: 10%;
+}
+
+#decline{
+  position: absolute;
+  text-align: center;
+  width: 20%;
+  height: 10%;
+  bottom: 10%;
+  right: 10%;
+}
+
 #eventsToggleDiv{
   position: absolute;
   bottom:0;

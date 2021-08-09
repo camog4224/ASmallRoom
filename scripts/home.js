@@ -1,7 +1,7 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
 
-setTimeout(turnOnPopup, 4000);
+setTimeout(fillPopupWithEventInfo, 4000);
 
 
 
@@ -10,7 +10,13 @@ setTimeout(turnOnPopup, 4000);
 var leftSide  = document.querySelector("#left");
 var middleSide = document.querySelector("#middle");
 var rightSide = document.querySelector("#right");
+
 var popup = document.querySelector("#popup");
+var prompt = document.querySelector("#prompt");
+var accept = document.querySelector("#accept");
+accept.addEventListener('click', acceptPrompt);
+var decline = document.querySelector("#decline");
+decline.addEventListener('click', declinePrompt);
 var cover = document.querySelector("#cover");
 
 var startFire = document.querySelector("#startFire");
@@ -55,16 +61,16 @@ var fire;
 function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == false){
-    resourceDict.wood--;
+    resourceDict.wood-= 5;
     updateResources();
     onFire = true;
     fire = setTimeout(smother, 5000);
     // console.log("FIRE STARTED");
       makeAddEventText("FIRE STARTED");
       // startFire.classList.add("cooldown");
-      cooldownButton(startFire, 20);
+      cooldownButton(startFire, 30);
       flareFlame(5);
-      numCharcoalStacked = 1;
+      numCharcoalStacked = 5;
   }
 }
 
@@ -139,7 +145,7 @@ function turnOnPopup(){
   if(eventsToggle.checked == false){
     popup.classList.add('poppedUp');
     cover.classList.add('poppedUp');
-    setTimeout(turnOffPopup, 2000);
+    // setTimeout(turnOffPopup, 1000);
   }else{
     eventsToggleDiv.classList.add('runEventMissed');
   }
@@ -151,10 +157,42 @@ function turnOffPopup(){
   cover.classList.remove('poppedUp');
 }
 
+function fillPopupWithEventInfo(){
+  var numLevels = randomEvents.Single.length;
+  var choseLevel = Math.floor(Math.random()*numLevels);
+  var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
+  var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
+  var chosenPerson = Math.floor(Math.random()*numDifPeople);
+  var personData = randomEvents.Single[choseLevel][levelName][chosenPerson];
+  console.log(personData);
+  prompt.innerHTML = personData.Prompt;
+  accept.innerHTML = personData.Accept
+  decline.innerHTML = personData.Decline
+  turnOnPopup();
+}
+
+function fillAccept(){
+
+}
+
+function acceptPrompt(){
+
+}
+
+function fillDecline(){
+
+}
+
+function declinePrompt(){
+
+}
+
+
+
 // console.log(resourceDict);
 // console.log(resourceDict.length);
 // console.log(Object.keys(resourceDict).length);
-// console.log(JSON.stringify(superInfo.Levels));
+// console.log(JSON.stringify(superInfo));
 // console.log(superInfo.Levels[0]);
 // console.log(Object.keys(superInfo.Levels[0])[0]);
 
@@ -166,9 +204,7 @@ function turnOffPopup(){
 //
 // }
 
-
 function addRow(name, val){
-  // console.log(table.rows.length);
   var row = table.insertRow(-1);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
