@@ -82,7 +82,7 @@ var randomEvents =
           },
           {
             "Level" : "Competant",
-            "Prompt" : "A stranger approaches you claiming they are good at gather, they ask for some kind of dwelling",
+            "Prompt" : "A stranger approaches you claiming they are good at gathering, they ask for some kind of dwelling",
             "Accept" : "Accept the stranger",
             "Decline" : "Turn them away",
             "Function" : "SingleCompetantTwo",

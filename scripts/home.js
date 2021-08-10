@@ -1,8 +1,7 @@
 // alert("CONNECTED");
 // var button = document.querySelector("#button");
 
-setTimeout(moveToNextEvent, 1000);
-var numEventsQueded = 5;
+
 
 
 
@@ -43,6 +42,7 @@ startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
+var numEventsQueded = 0;
 
 var numCharcoalStacked = 0;
 
@@ -65,21 +65,42 @@ function updateResources(){
   }
 }
 
-var fire;
+function openTab(evt, placeName) {
+  var i, tabContent, tabLinks;
+  tabContent = document.getElementsByClassName("tabContent");
+  for (i = 0; i < tabContent.length; i++) {
+    tabContent[i].style.display = "none";
+  }
+  tabLinks = document.getElementsByClassName("tabLinks");
+  for (i = 0; i < tabLinks.length; i++) {
+    tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+  }
+  document.getElementById(placeName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
+document.getElementById("defaultOpen").click();
+
+var fire;
+var fireEvent;
+var timeForNextFireEvent = 12000;
+var fireEventTimeIncrement = 50;
 function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == false){
-    resourceDict.wood-= 5;
+    var numWoodStart = 5;
+    resourceDict.wood-= numWoodStart;
     updateResources();
     onFire = true;
     fire = setTimeout(smother, 5000);
+    fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
     // console.log("FIRE STARTED");
-      makeAddEventText("FIRE STARTED");
+    makeAddEventText("FIRE STARTED");
       // startFire.classList.add("cooldown");
-      cooldownButton(startFire, 30);
-      flareFlame(5);
-      numCharcoalStacked = 5;
+    cooldownButton(startFire, 30);
+    flareFlame(5);
+    numCharcoalStacked = numWoodStart;
+    timeForNextFireEvent += fireEventTimeIncrement;
   }
 }
 
@@ -111,10 +132,11 @@ function flameAnimation(){
 
 function smother(){
   // console.log("FIRE WENT OUT");
-    makeAddEventText("FIRE WENT OUT");
+  makeAddEventText("FIRE WENT OUT");
   resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
   onFire = false;
+  clearTimeout(fireEvent);
 }
 
 function buttonClickable(button){
@@ -138,7 +160,13 @@ function stokeFireFunc(){
   }
 }
 
+function addFireEvent(){
+  if(onFire == true){
+    numEventsQueded++;
+    moveToNextEvent();
 
+  }
+}
 
 var table = document.createElement("TABLE");
 table.setAttribute("class","border");
@@ -167,36 +195,36 @@ function turnOffPopup(){
   cover.classList.remove('poppedUp');
   moveToNextEvent();
 }
-
+//probably just redundant
 function moveToNextEvent(){
-  fillPopupWithEventInfo();
+  if(numEventsQueded >= 1){
+    numEventsQueded--;
+
+    fillPopupWithEventInfo();
+  }
 }
 
 function fillPopupWithEventInfo(){
-  if(numEventsQueded >= 1){
-    numEventsQueded--;
+
     var numLevels = randomEvents.Single.length;
     var choseLevel = Math.floor(Math.random()*numLevels);
     var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
     var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
     var chosenPerson = Math.floor(Math.random()*numDifPeople);
     var personData = randomEvents.Single[choseLevel][levelName][chosenPerson];
-    console.log(personData);
+
     prompt.innerHTML = personData.Prompt;
     accept.innerHTML = personData.Accept;
     decline.innerHTML = personData.Decline;
     accept.setAttribute("data-response", personData.EnterMessage);
     decline.setAttribute("data-response", personData.LeaveMessage);
     turnOnPopup();
-  }
+
 }
 
 function promptResolution(buttonChosen){
   turnOffPopup();
-  console.log("DONE");
-  console.log(buttonChosen);
   var info = buttonChosen.getAttribute("data-response");
-  console.log(info);
   makeAddEventText(info);
 }
 

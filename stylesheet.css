@@ -1,11 +1,16 @@
+html *{
+  user-select: none !important;
+
+}
 
 .button{
-width: 100px;
-height: 30px;
-position: relative;
-background:white;
-z-index: 3;
-user-select: none;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  background:white;
+  z-index: 3;
+  user-select: none;
+  margin: 10px 0px;
 }
 
 .cooldown{
@@ -72,24 +77,50 @@ user-select: none;
   float:left;
   width: 35%;
   background:#ad7e8f;
-  height: 50%;
+  height: 100%;
+  font-size: 20px;
   /* overflow: scroll; */
 }
 
-#middle{
+#aSmallHut{
   float:left;
   position: relative;
-  width: 25%;
-  height: 50%;
+  width: 30%;
+  height: 100%;
   background:#dede95;
 }
 
 #right{
   float:right;
   width: 25%;
-  height: 50%;
+  height: 100%;
   background:#d4a4a4;
   /* transition: background 2s; */
+}
+
+#allStuff{
+  height:50%;
+}
+
+#top{
+  position: absolute;
+  left: 35%;
+  width: 30%;
+  background: #23ddaa;
+  z-index: 5;
+}
+
+.tabs button{
+  float: left:
+  cursor: pointer;
+}
+
+.tabs buttons.active{
+  background: #ddd;
+}
+
+.tabContent{
+  display: none;
 }
 
 #popup{
@@ -129,8 +160,8 @@ user-select: none;
   position: absolute;
   text-align: center;
   font-size: 20px;
-  width: 20%;
-  height: 10%;
+  width: 25%;
+  height: 15%;
   bottom: 10%;
   left: 10%;
   user-select: none;
@@ -140,8 +171,8 @@ user-select: none;
   position: absolute;
   text-align: center;
   font-size: 20px;
-  width: 20%;
-  height: 10%;
+  width: 25%;
+  height: 15%;
   bottom: 10%;
   right: 10%;
   user-select: none;

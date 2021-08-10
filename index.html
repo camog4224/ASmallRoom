@@ -7,25 +7,36 @@
       <input type = "checkbox" id = "eventsToggle" name = "eventsToggle" value = "eventsToggle">
       <label for = "eventsToggle">Check to toggle off event pop ups</label>
     </div>
-    <div id = "left">
-      <!-- HISTORY -->
-    </div>
-    <div id = "middle">
-      <div>DECISIONS</div>
-      <div id = "fireDisplay" class = "border runFireAnimation"></div>
-
-      <div id = "startFire" class = "border button" role = "button">
-        Start Fire
+    <div id = "allStuff">
+      <div id = "left">
+        <!-- HISTORY -->
       </div>
-
-
-      <div id = "stokeFire" class = "border button"  role = "button">
-        Stoke Fire
+      <div id = "top" class = "tabs">
+        <button class="tabLinks" onclick="openTab(event, 'aSmallHut')" id="defaultOpen">A Small Hut</button>
+        <button class="tabLinks" onclick="openTab(event, 'theWoods')">The Woods</button>
+        <button class="tabLinks" onclick="openTab(event, 'theRiver')">The River</button>
+        <button class="tabLinks" onclick="openTab(event, 'theClearing')">The Clearing</button>
       </div>
-    </div>
-    <div id = "right">
-      RESOURCES
-    </div>
+      <div id = "aSmallHut" class = "tabContent">
+        <div>DECISIONS</div>
+        <div id = "fireDisplay" class = "border runFireAnimation"></div>
+
+        <div id = "startFire" class = "border button" role = "button">
+          Start Fire
+        </div>
+
+
+        <div id = "stokeFire" class = "border button"  role = "button">
+          Stoke Fire
+        </div>
+      </div>
+      <div id = "theWoods" class = "tabContent"> The Woods</div>
+      <div id = "theRiver" class = "tabContent"> The River</div>
+      <div id = "theClearing" class = "tabContent"> The Clearing</div>
+      <div id = "right">
+        RESOURCES
+      </div>
+  </div>
     <div id = "popup">
       <div id = "prompt" class = "border">PROMPT</div>
       <div id = "accept" class = "border">ACCEPT</div>
