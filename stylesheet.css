@@ -79,15 +79,22 @@ html *{
   background:#ad7e8f;
   height: 100%;
   font-size: 20px;
-  /* overflow: scroll; */
 }
 
 #aSmallHut{
-  float:left;
-  position: relative;
-  width: 30%;
-  height: 100%;
   background:#dede95;
+}
+
+#theWoods{
+  background:#00eeee;
+}
+
+#theRiver{
+  background:#ff0095;
+}
+
+#theClearing{
+  background:#d0fe90;
 }
 
 #right{
@@ -102,12 +109,20 @@ html *{
   height:50%;
 }
 
-#top{
-  position: absolute;
-  left: 35%;
+#middle{
+  float:left;
   width: 30%;
+  --tabBarHeight: 30px;
+}
+
+#tabBar{
+  /* position: absolute; */
+  float: left;
+  width: 100%;
+  height: var(--tabBarHeight);
   background: #23ddaa;
   z-index: 5;
+
 }
 
 .tabs button{
@@ -121,6 +136,11 @@ html *{
 
 .tabContent{
   display: none;
+  /* clear: left;  */
+  float:left;
+  position: relative;
+  width: 100%;
+  height: calc(100% - var(--tabBarHeight));
 }
 
 #popup{

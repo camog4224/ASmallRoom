@@ -11,28 +11,35 @@
       <div id = "left">
         <!-- HISTORY -->
       </div>
-      <div id = "top" class = "tabs">
-        <button class="tabLinks" onclick="openTab(event, 'aSmallHut')" id="defaultOpen">A Small Hut</button>
-        <button class="tabLinks" onclick="openTab(event, 'theWoods')">The Woods</button>
-        <button class="tabLinks" onclick="openTab(event, 'theRiver')">The River</button>
-        <button class="tabLinks" onclick="openTab(event, 'theClearing')">The Clearing</button>
-      </div>
-      <div id = "aSmallHut" class = "tabContent">
-        <div>DECISIONS</div>
-        <div id = "fireDisplay" class = "border runFireAnimation"></div>
-
-        <div id = "startFire" class = "border button" role = "button">
-          Start Fire
+      <div id = "middle">
+        <div id = "tabBar" class = "tabs">
+          <button class="tabLinks" onclick="openTab(event, 'aSmallHut')" id="defaultOpen">A Small Hut</button>
+          <button class="tabLinks" onclick="openTab(event, 'theWoods')">The Woods</button>
+          <button class="tabLinks" onclick="openTab(event, 'theRiver')">The River</button>
+          <button class="tabLinks" onclick="openTab(event, 'theClearing')">The Clearing</button>
         </div>
+        <div id = "aSmallHut" class = "tabContent">
+          <div>DECISIONS</div>
+          <div id = "fireDisplay" class = "border runFireAnimation"></div>
+
+          <div id = "startFire" class = "border button" role = "button">
+            Start Fire
+          </div>
 
 
-        <div id = "stokeFire" class = "border button"  role = "button">
-          Stoke Fire
+          <div id = "stokeFire" class = "border button"  role = "button">
+            Stoke Fire
+          </div>
+        </div>
+        <div id = "theWoods" class = "tabContent"> The Woods</div>
+        <div id = "theRiver" class = "tabContent"> The River</div>
+        <div id = "theClearing" class = "tabContent">
+          The Clearing, This is to setup an expedition
+          <form action="wander.html ">
+            <input type="submit" value="Go Outside" />
+          </form>
         </div>
       </div>
-      <div id = "theWoods" class = "tabContent"> The Woods</div>
-      <div id = "theRiver" class = "tabContent"> The River</div>
-      <div id = "theClearing" class = "tabContent"> The Clearing</div>
       <div id = "right">
         RESOURCES
       </div>
