@@ -54,6 +54,16 @@ var resourceDict = {
   "stone" : 0
 };
 
+var tabNames = ["aSmallHut", "theWoods", "theRiver", "theClearing"];
+var tabChunks = {
+  "aSmallHut" : {"arrived" : true},
+  "theWoods" : {"arrived" : false},
+  "theRiver" : {"arrived" : false},
+  "theClearing" : {"arrived" : false}
+};
+
+console.log(tabChunks.theWoods.arrived);
+
 function updateResources(){
 
   var index = 0;
@@ -95,13 +105,23 @@ function startFireFunc(){
     fire = setTimeout(smother, 5000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
     // console.log("FIRE STARTED");
-    makeAddEventText("FIRE STARTED");
+    makeAddEventText("FIRE STARTED", "#ff0000");
       // startFire.classList.add("cooldown");
     cooldownButton(startFire, 30);
     flareFlame(5);
     numCharcoalStacked = numWoodStart;
     timeForNextFireEvent += fireEventTimeIncrement;
+    if(tabChunks.theWoods.arrived == false){
+      tabChunks.theWoods.arrived = true;
+      discoverNewTab(1);
+    }
   }
+}
+
+function discoverNewTab(tabIndex){
+  var newTab = document.getElementsByClassName("tabLinks")[tabIndex];
+  // var newTab = document.getElementById(tabNames[tabNameIndex]);
+  newTab.style.setProperty("display", "block");
 }
 
 function cooldownButton(button, cooldownTime){
@@ -132,7 +152,7 @@ function flameAnimation(){
 
 function smother(){
   // console.log("FIRE WENT OUT");
-  makeAddEventText("FIRE WENT OUT");
+  makeAddEventText("FIRE WENT OUT", "#aaaaaa");
   resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
   onFire = false;
@@ -152,7 +172,7 @@ function stokeFireFunc(){
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
     // console.log("STOKED");
-    makeAddEventText("STOKED");
+    makeAddEventText("STOKED", "#aa0000");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
     flareFlame(5);
@@ -225,7 +245,7 @@ function fillPopupWithEventInfo(){
 function promptResolution(buttonChosen){
   turnOffPopup();
   var info = buttonChosen.getAttribute("data-response");
-  makeAddEventText(info);
+  makeAddEventText(info, "#009900");
 }
 
 
@@ -264,11 +284,12 @@ function makeElementInDiv(elementName){
 
 var totalHistoryItems = 10;
 
-function makeAddEventText(text){
+function makeAddEventText(text, eventColor){
   var p = document.createElement("p");
+  // p.style.background = eventColor;
   // p.style.opacity = (totalHistoryItems-numEvents)*(1./totalHistoryItems);
-  var t = document.createTextNode(text);
-  p.append(t);
+  // var t = document.createTextNode(text);
+  p.append(document.createTextNode(text));
   leftSide.prepend(p);
   var numEvents = leftSide.children.length;
   for(var i = 0; i < numEvents; i++){
