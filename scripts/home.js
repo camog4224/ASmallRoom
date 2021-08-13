@@ -62,7 +62,6 @@ var tabChunks = {
   "theClearing" : {"arrived" : false}
 };
 
-console.log(tabChunks.theWoods.arrived);
 
 function updateResources(){
 
@@ -79,14 +78,18 @@ function openTab(evt, placeName) {
   var i, tabContent, tabLinks;
   tabContent = document.getElementsByClassName("tabContent");
   for (i = 0; i < tabContent.length; i++) {
-    tabContent[i].style.display = "none";
+    // tabContent[i].style.display = "none";
+    tabContent[i].style.visibility = "hidden";
+
   }
   tabLinks = document.getElementsByClassName("tabLinks");
   for (i = 0; i < tabLinks.length; i++) {
     tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+
   }
-  document.getElementById(placeName).style.display = "block";
+  document.getElementById(placeName).style.visibility = "visible";
   evt.currentTarget.className += " active";
+  console.log("DONE");
 }
 
 document.getElementById("defaultOpen").click();
@@ -121,7 +124,7 @@ function startFireFunc(){
 function discoverNewTab(tabIndex){
   var newTab = document.getElementsByClassName("tabLinks")[tabIndex];
   // var newTab = document.getElementById(tabNames[tabNameIndex]);
-  newTab.style.setProperty("display", "block");
+  newTab.style.setProperty("visibility", "visible");
 }
 
 function cooldownButton(button, cooldownTime){
