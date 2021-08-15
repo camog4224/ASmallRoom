@@ -4,18 +4,16 @@ like the
 var superInfo = {
 //position in array relates to how progressed their soceity is
 // values determine how likely they are perform
-  "Levels": [
-    {"Doctor" : [{"Healer" : .25 }, {"Shaman" : .6} , {"Doctor" : .9}]},
-    {"Guard" : [{"Tough Guy" : .25}, {"Scout" : .5}, {"Guard" : [{"Ranger" : .8}, {"Soldier" : .8}, {"Assassin" : .8}]}, {"Trooper" : .9}]},
-    {"Architect" : [{"Artisan" : .25}, {"Carpenter" : .6}, {"Architect" : .9}]},
-    {"Rancher" : [{"Tough Guy" : .25}, {"Hunter" : .6}, {"Rancher" : .9}]},
-    {"Forager" : [{"Scavenger" : .25}, {"Lumberjack" : .6}, {"Forager" : .9}]},
-    {"Priest" : [{"Shaman" : .25}, {"Cleric" : .6}, {"Priest" : .9}]},
-    {"Craftsman" : [{"Weaver" : .25}, {"Artisan" : .6}, {"Craftsman" : .9}]},
-    {"Mayor" : [{"Leader" : .25}, {"Cheiftan" : .6}, {"Mayor" : .9}]},
-    {"Researcher" : [{"Shaman" : .25}, {"Artisan" : .6}, {"Reasearcher" : [{"Archeologist" : .9}, {"Builder" : .9}]}]},
-    {"Ambassador" : [{"Courier" : .25}, {"Merchant" : .6}, {"Ambassador" : .9}]}
-  ]
+    "Doctor" : [{"Healer" : .25 }, {"Shaman" : .6} , {"Doctor" : .9}],
+    "Guard" : [{"Tough Guy" : .25}, {"Scout" : .5}, {"Guard" : [{"Ranger" : .8}, {"Soldier" : .8}, {"Assassin" : .8}]}, {"Trooper" : .9}],
+    "Architect" : [{"Artisan" : .25}, {"Carpenter" : .6}, {"Architect" : .9}],
+    "Rancher" : [{"Tough Guy" : .25}, {"Hunter" : .6}, {"Rancher" : .9}],
+    "Forager" : [{"Scavenger" : .25}, {"Lumberjack" : .6}, {"Forager" : .9}],
+    "Priest" : [{"Shaman" : .25}, {"Cleric" : .6}, {"Priest" : .9}],
+    "Craftsman" : [{"Weaver" : .25}, {"Artisan" : .6}, {"Craftsman" : .9}],
+    "Mayor" : [{"Leader" : .25}, {"Cheiftan" : .6}, {"Mayor" : .9}],
+    "Researcher" : [{"Shaman" : .25}, {"Artisan" : .6}, {"Reasearcher" : [{"Archeologist" : .9}, {"Builder" : .9}]}],
+    "Ambassador" : [{"Courier" : .25}, {"Merchant" : .6}, {"Ambassador" : .9}]
 
 };
 
@@ -40,6 +38,7 @@ var randomEvents =
             "Prompt" : "A hooded individual comes to you seemingly haggard, they ask for a place to stay",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
+            "Role" : "Scavenger",
             "FunctionName" : "SingleWeakOne",
             "Alignment" : "Good",
             "EnterMessage" : "The individual thanks you for your generocity",
@@ -50,6 +49,7 @@ var randomEvents =
             "Prompt" : "A stranger approaches asking for someplace to stay",
             "Accept" : "Accept the stranger",
             "Decline" : "Turn them away",
+            "Role" : "Weaver",
             "Function" : "SingleWeakTwo",
             "Alignment" : "Evil",
             "EnterMessage" : "The stranger happily grins and rushes past you to get acquainted",
@@ -60,6 +60,7 @@ var randomEvents =
             "Prompt" : "A drifter approaches asking for someplace to stay",
             "Accept" : "Accept the drifter",
             "Decline" : "Turn them away",
+            "Role" : "Scavenger",
             "Function" : "SingleWeakThree",
             "Alignment" : "Neutral",
             "EnterMessage" : "The drifter nods and starts accessing where they will be staying",
@@ -75,6 +76,7 @@ var randomEvents =
             "Prompt" : "An rugged looking individual approaches you claiming to be tough, they ask for a place to work and stay",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleCompetantOne",
             "Alignment" : "Good",
             "EnterMessage" : "The individual grunts a thanks and lumbers past to see his quarters",
@@ -85,6 +87,7 @@ var randomEvents =
             "Prompt" : "A stranger approaches you claiming they are good at gathering, they ask for some kind of dwelling",
             "Accept" : "Accept the stranger",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleCompetantTwo",
             "Alignment" : "Bad",
             "EnterMessage" : "The stranger's eye light up and they hear your decision, they thank you and rush past you",
@@ -95,6 +98,7 @@ var randomEvents =
             "Prompt" : "A drifter approaches you claiming to know how to do first aid, they ask for a place to help people",
             "Accept" : "Accept the drifter",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleCompetantThree",
             "Alignment" : "Neutral",
             "EnterMessage" : "The drifter nods with approval and immediately starts asking for medical supplies to help the wounded",
@@ -110,6 +114,7 @@ var randomEvents =
             "Prompt" : "An individual approaches you telling you that they have experience scouting new areas, this is the first place they found looking for work",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleStrongOne",
             "Alignment" : "Good",
             "EnterMessage" : "The individual makes a deep bow and promptly takes stock of area",
@@ -120,6 +125,7 @@ var randomEvents =
             "Prompt" : "A stranger approaches you saying that they have worked as an artisan for many years though a famine hit their village and now they are looking for a new place to work and stay",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleStrongTwo",
             "Alignment" : "Bad",
             "EnterMessage" : "The stranger blinks away tears of joy and firmly shakes you hand then goes to find his workplace",
@@ -130,6 +136,7 @@ var randomEvents =
             "Prompt" : "A drifter approaches you with animal peltskin over their shoulder, they ask for a place to hunt and stay",
             "Accept" : "Accept the individual",
             "Decline" : "Turn them away",
+            "Role" : "",
             "Function" : "SingleStrongThree",
             "Alignment" : "Neutral",
             "EnterMessage" : "The drifter gives a quick nod then starts towards his residence",

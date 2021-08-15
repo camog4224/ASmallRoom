@@ -10,7 +10,8 @@ html *{
   background:white;
   z-index: 3;
   user-select: none;
-  margin: 10px 0px;
+  margin: 10px;
+  text-align: center;
 }
 
 .cooldown{
@@ -42,25 +43,33 @@ html *{
 #fireDisplay{
   /* float:right; */
   /* margin:auto; */
-  top: 50px;
-  right: 50px;
+
+  top: calc(var(--fireRadius) * 1);
+  right: calc(var(--fireRadius) * 1);
   position:absolute;
-  width: 15%;
+  width: var(--fireRadius);
   border-radius: 100%;
   aspect-ratio: 1 / 1;
   --timeLeft: 0s;
   border-color: grey;
-  border-width: thick;
+  border-width: thin;
   background: grey;
 }
 
+#fireStuff{
+  --fireRadius: 50px;
+  height: calc(var(--fireRadius) * 3);
+}
+
 .runFireAnimation{
-  animation: fireAnimation var(--timeLeft, 0s) linear forwards;
+  animation: fireAnimation var(--timeLeft, 0s) ease forwards;
 }
 
 @keyframes fireAnimation{
-  0%{background:red;transform: scale(2);}
-  50%{background:yellow;}
+  0%{background:grey;transform: scale(1);}
+  25%{background:yellow;}
+  50%{background:red;transform: scale(3);}
+  100%{background:yellow;}
   100%{background:grey;transform: scale(1);}
 }
 
@@ -88,6 +97,7 @@ html *{
 
 #aSmallHut{
   background:#dede95;
+
 }
 
 #theWoods{
@@ -104,7 +114,7 @@ html *{
 
 #right{
   float:right;
-  width: 25%;
+  width: 15%;
   height: 100%;
   background:#d4a4a4;
   /* transition: background 2s; */
@@ -116,7 +126,7 @@ html *{
 
 #middle{
   float:left;
-  width: 30%;
+  width: 40%;
   height: 100%;
   position: relative;
   --tabBarHeight: 30px;

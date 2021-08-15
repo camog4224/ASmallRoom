@@ -23,6 +23,8 @@ var decline = document.querySelector("#decline");
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
 
+var chopWood = document.querySelector("#chopWood")
+
 var fireDisplay = document.querySelector("#fireDisplay");
 
 var eventsToggle = document.querySelector("#eventsToggle");
@@ -40,6 +42,7 @@ decline.addEventListener('click', function(){
 });
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
+chopWood.addEventListener('click', chopWoodFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
 var numEventsQueded = 0;
@@ -50,9 +53,14 @@ var onFire = false;
 
 var resourceDict = {
   "wood" : 20,
-  "charcoal" : 0,
-  "stone" : 0
+  "charcoal" : 0
 };
+
+setTimeout(function(){
+  resourceDict["meat"] = 5;
+  addRow("meat", 5);
+  updateResources();
+}, 1000);
 
 var tabNames = ["aSmallHut", "theWoods", "theRiver", "theClearing"];
 var tabChunks = {
@@ -62,12 +70,25 @@ var tabChunks = {
   "theClearing" : {"arrived" : false}
 };
 
+var woodIncreaseIncrement = 5;
+
+function chopWoodFunc(){
+  if(buttonClickable(chopWood) == true){
+
+    resourceDict.wood+= woodIncreaseIncrement;
+    updateResources();
+
+    makeAddEventText("Wood Collected", "#964B00");
+    cooldownButton(chopWood, 10);
+
+  }
+}
 
 function updateResources(){
 
   var index = 0;
   for(var key in resourceDict){
-    // console.log(key);
+
     table.rows[index].cells[1].innerHTML = resourceDict[key];
     // var value = resourceDict[temp];
     index++;
@@ -89,7 +110,7 @@ function openTab(evt, placeName) {
   }
   document.getElementById(placeName).style.visibility = "visible";
   evt.currentTarget.className += " active";
-  console.log("DONE");
+
 }
 
 document.getElementById("defaultOpen").click();
@@ -100,16 +121,16 @@ var timeForNextFireEvent = 12000;
 var fireEventTimeIncrement = 50;
 function startFireFunc(){
 
-  if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == false){
+  if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == true){
     var numWoodStart = 5;
     resourceDict.wood-= numWoodStart;
     updateResources();
     onFire = true;
     fire = setTimeout(smother, 5000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
-    // console.log("FIRE STARTED");
+
     makeAddEventText("FIRE STARTED", "#ff0000");
-      // startFire.classList.add("cooldown");
+
     cooldownButton(startFire, 30);
     flareFlame(5);
     numCharcoalStacked = numWoodStart;
@@ -132,7 +153,7 @@ function cooldownButton(button, cooldownTime){
   cooldownDiv.classList.add("cooldown");
   cooldownDiv.style.setProperty("--timeToCooldown", cooldownTime + "s");
   cooldownDiv.addEventListener("animationend", function(){
-    // console.log("REMOVED COOLDOWN DIV");
+
     cooldownDiv.remove();
     button.classList.remove("disabled");
   });
@@ -154,7 +175,7 @@ function flameAnimation(){
 }
 
 function smother(){
-  // console.log("FIRE WENT OUT");
+
   makeAddEventText("FIRE WENT OUT", "#aaaaaa");
   resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
@@ -163,18 +184,18 @@ function smother(){
 }
 
 function buttonClickable(button){
-  return button.classList.contains("disabled");
+  return !button.classList.contains("disabled");
 }
 
 function stokeFireFunc(){
   // alert("FIRE STOKED");
-  if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == false){
+  if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
 
     updateResources();
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
-    // console.log("STOKED");
+
     makeAddEventText("STOKED", "#aa0000");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
@@ -194,10 +215,9 @@ function addFireEvent(){
 var table = document.createElement("TABLE");
 table.setAttribute("class","border");
 var res = Object.keys(resourceDict);
-// console.log(res[0]);
-// console.log(resourceDict["wood"]);
+
 for(var i = 0; i < res.length; i++){
-  // console.log(res[i], resourceDict.res[i]);
+
   addRow(res[i], resourceDict[res[i]]);
 }
 
@@ -213,7 +233,7 @@ function turnOnPopup(){
 }
 
 function turnOffPopup(){
-  // console.log(cover);
+
   popup.classList.remove('poppedUp');
   cover.classList.remove('poppedUp');
   moveToNextEvent();
@@ -230,7 +250,8 @@ function moveToNextEvent(){
 function fillPopupWithEventInfo(){
 
     var numLevels = randomEvents.Single.length;
-    var choseLevel = Math.floor(Math.random()*numLevels);
+    // var choseLevel = Math.floor(Math.random()*numLevels);
+    var choseLevel = 0;
     var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
     var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
     var chosenPerson = Math.floor(Math.random()*numDifPeople);
@@ -240,7 +261,9 @@ function fillPopupWithEventInfo(){
     accept.innerHTML = personData.Accept;
     decline.innerHTML = personData.Decline;
     accept.setAttribute("data-response", personData.EnterMessage);
+    accept.setAttribute("data-role", personData.Role);
     decline.setAttribute("data-response", personData.LeaveMessage);
+    console.log(personData);
     turnOnPopup();
 
 }
@@ -248,25 +271,47 @@ function fillPopupWithEventInfo(){
 function promptResolution(buttonChosen){
   turnOffPopup();
   var info = buttonChosen.getAttribute("data-response");
+  var roleInfo = buttonChosen.getAttribute("data-role");
+  if(roleInfo != null){
+    checkCustomConditions(roleInfo);
+  }
   makeAddEventText(info, "#009900");
 }
 
+function checkCustomConditions(role){
+  console.log(role);
+  var roleCategory = compare(role);
+  if(roleCategory != null){
+    console.log(roleCategory);
+    switch(roleCategory){
+      case "Forager":
+        console.log("FORAGER");
+        break;
+      case "Craftsman":
+        console.log("CRAFTSMAN");
+        break;
+    }
+  }
 
+}
+//used to compare a test role and see if its in the whole set
+//probably won't use this but mights use a bit for some other thing, like
+function compare(testRole){
+  // var testRole = "Scavenger";
+  for(var key in superInfo){
 
-// console.log(resourceDict);
-// console.log(resourceDict.length);
-// console.log(Object.keys(resourceDict).length);
-// console.log(JSON.stringify(superInfo));
-// console.log(superInfo.Levels[0]);
-// console.log(Object.keys(superInfo.Levels[0])[0]);
+    for(var j = 0; j < superInfo[key].length; j++){
+      var currentRole = Object.keys(superInfo[key][j])[0];
+      if(currentRole === testRole){
+        // console.log(key, j, currentRole);
+        return key;
 
-// var infoLen = superInfo.Levels.length;
-// for(var i = 0; i < infoLen; i++){
-//   var tempText = Object.keys(superInfo.Levels[i])[0];
-//   var opacityIncrement = 1./infoLen;
-//   makeAddEventText(tempText, (infoLen-i)*opacityIncrement);
-//
-// }
+      }
+    }
+
+  }
+  return null;
+}
 
 function addRow(name, val){
   var row = table.insertRow(-1);
@@ -300,7 +345,7 @@ function makeAddEventText(text, eventColor){
   }
   if(numEvents > totalHistoryItems){
     leftSide.removeChild(leftSide.lastChild);
-    // console.log("DELETED LAST");
+
   }
 }
 
