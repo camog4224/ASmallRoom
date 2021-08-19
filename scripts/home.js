@@ -249,21 +249,23 @@ function moveToNextEvent(){
 
 function fillPopupWithEventInfo(){
 
-    var numLevels = randomEvents.Single.length;
+    var levelNames = Object.keys(randomEvents.Single);
     // var choseLevel = Math.floor(Math.random()*numLevels);
-    var choseLevel = 0;
-    var levelName = Object.keys(randomEvents.Single[choseLevel])[0];
-    var numDifPeople = randomEvents.Single[choseLevel][levelName].length;
+    var chosenLevel = 0;
+    var chosenLevelName = levelNames[chosenLevel];
+    var numDifPeople = randomEvents.Single[chosenLevelName].length;
     var chosenPerson = Math.floor(Math.random()*numDifPeople);
-    var personData = randomEvents.Single[choseLevel][levelName][chosenPerson];
+    var personData = randomEvents.Single[chosenLevelName][chosenPerson];
+    // console.log(personData);
 
     prompt.innerHTML = personData.Prompt;
     accept.innerHTML = personData.Accept;
     decline.innerHTML = personData.Decline;
     accept.setAttribute("data-response", personData.EnterMessage);
+    accept.setAttribute("data-function", personData.EnterFunction);
     accept.setAttribute("data-role", personData.Role);
     decline.setAttribute("data-response", personData.LeaveMessage);
-    console.log(personData);
+    decline.setAttribute("data-function", personData.LeaveFunction);
     turnOnPopup();
 
 }
@@ -272,39 +274,37 @@ function promptResolution(buttonChosen){
   turnOffPopup();
   var info = buttonChosen.getAttribute("data-response");
   var roleInfo = buttonChosen.getAttribute("data-role");
-  if(roleInfo != null){
-    checkCustomConditions(roleInfo);
-  }
+  var eventFunctionName = buttonChosen.getAttribute("data-function");
+
+  window[eventFunctionName](); //possibly put in a "strength" argument depending on words of prompt
   makeAddEventText(info, "#009900");
 }
+generateFunctionNames();
+function generateFunctionNames(){
 
-function checkCustomConditions(role){
-  console.log(role);
-  var roleCategory = compare(role);
-  if(roleCategory != null){
-    console.log(roleCategory);
-    switch(roleCategory){
-      case "Forager":
-        console.log("FORAGER");
-        break;
-      case "Craftsman":
-        console.log("CRAFTSMAN");
-        break;
+  for(var level in randomEvents.Single){
+    for(var personIndex = 0; personIndex < randomEvents.Single[level].length; personIndex++){
+      var personData = randomEvents.Single[level][personIndex];
+
+      randomEvents.Single[level][personIndex]["EnterFunction"] = "" + personData.Level + "Enter" + personData.Alignment + personData.Role;
+      randomEvents.Single[level][personIndex]["LeaveFunction"] = "" + personData.Level + "Leave" + personData.Alignment + personData.Role;
+
     }
   }
 
 }
 //used to compare a test role and see if its in the whole set
 //probably won't use this but mights use a bit for some other thing, like
+//currenlty jsut returns the group of role given a specific role
 function compare(testRole){
   // var testRole = "Scavenger";
-  for(var key in superInfo){
+  for(var roleCategory in rolesJson){
 
-    for(var j = 0; j < superInfo[key].length; j++){
-      var currentRole = Object.keys(superInfo[key][j])[0];
+    for(var j = 0; j < rolesJson[roleCategory].length; j++){
+      var currentRole = Object.keys(rolesJson[roleCategory][j])[0];
       if(currentRole === testRole){
         // console.log(key, j, currentRole);
-        return key;
+        return roleCategory;
 
       }
     }
