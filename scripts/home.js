@@ -1,15 +1,4 @@
-// alert("CONNECTED");
-// var button = document.querySelector("#button");
 
-
-
-
-
-/*
-maybe have some events trigger other events, like if you decline a "strong" npc they might ask again but more aggresivly
-*/
-
-// setInterval(checkResources,100);
 
 var leftSide  = document.querySelector("#left");
 var middleSide = document.querySelector("#middle");
@@ -56,17 +45,29 @@ var resourceDict = {
   "charcoal" : 0
 };
 
-setTimeout(function(){
-  resourceDict["meat"] = 5;
-  addRow("meat", 5);
-  updateResources();
-}, 1000);
+// setTimeout(function(){
+//   resourceDict["meat"] = 5;
+//   addRow("meat", 5);
+//   updateResources();
+// }, 1000);
 
 var tabNames = ["aSmallHut", "theWoods", "theRiver", "theClearing"];
 var tabChunks = {
-  "aSmallHut" : {"arrived" : true},
-  "theWoods" : {"arrived" : false},
-  "theRiver" : {"arrived" : false},
+  "aSmallHut" :
+    {
+    "arrived" : true,
+    "hasCraftsman" : false,
+    "hasArchitect" : false
+    },
+  "theWoods" :
+    {
+      "arrived" : false,
+      "hasForager" : false
+    },
+  "theRiver" :
+    {
+      "arrived" : false
+    },
   "theClearing" : {"arrived" : false}
 };
 
@@ -238,8 +239,8 @@ function turnOffPopup(){
   cover.classList.remove('poppedUp');
   moveToNextEvent();
 }
-//probably just redundant
 function moveToNextEvent(){
+  //probably just redundant
   if(numEventsQueded >= 1){
     numEventsQueded--;
 
@@ -279,9 +280,10 @@ function promptResolution(buttonChosen){
   window[eventFunctionName](); //possibly put in a "strength" argument depending on words of prompt
   makeAddEventText(info, "#009900");
 }
-generateFunctionNames();
-function generateFunctionNames(){
 
+
+function generateFunctionNames(){
+//makes names for the functions for when an NPC is accpeted or rejected
   for(var level in randomEvents.Single){
     for(var personIndex = 0; personIndex < randomEvents.Single[level].length; personIndex++){
       var personData = randomEvents.Single[level][personIndex];
@@ -293,10 +295,13 @@ function generateFunctionNames(){
   }
 
 }
-//used to compare a test role and see if its in the whole set
-//probably won't use this but mights use a bit for some other thing, like
-//currenlty jsut returns the group of role given a specific role
+
+
 function compare(testRole){
+  //used to compare a test role and see if its in the whole set
+  //probably won't use this but mights use a bit for some other thing, like
+  //currenlty jsut returns the group of role given a specific role
+
   // var testRole = "Scavenger";
   for(var roleCategory in rolesJson){
 
@@ -311,6 +316,18 @@ function compare(testRole){
 
   }
   return null;
+}
+//this is used to export the events to a json text file
+function export2txt() {
+
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(randomEvents, null, 2)], {
+    type: "text/plain"
+  }));
+  a.setAttribute("download", "data.txt");
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 function addRow(name, val){
