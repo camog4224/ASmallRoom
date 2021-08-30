@@ -56,13 +56,15 @@ var tabChunks = {
   "aSmallHut" :
     {
     "arrived" : true,
-    "hasCraftsman" : false,
-    "hasArchitect" : false
+    "canCraft" : false,
+    "canBuild" : false
     },
   "theWoods" :
     {
       "arrived" : false,
-      "hasForager" : false
+      "canHunt" : false,
+      "canFish" : false,
+      "canGatherWood" : false
     },
   "theRiver" :
     {
@@ -79,7 +81,7 @@ function chopWoodFunc(){
     resourceDict.wood+= woodIncreaseIncrement;
     updateResources();
 
-    makeAddEventText("Wood Collected", "#964B00");
+    makeAddEventText("Wood Collected", "rgb(150, 75, 0, .5)");
     cooldownButton(chopWood, 10);
 
   }
@@ -130,7 +132,7 @@ function startFireFunc(){
     fire = setTimeout(smother, 5000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
 
-    makeAddEventText("FIRE STARTED", "#ff0000");
+    makeAddEventText("FIRE STARTED", "rgb(255, 0, 0, .5)");
 
     cooldownButton(startFire, 30);
     flareFlame(5);
@@ -176,8 +178,7 @@ function flameAnimation(){
 }
 
 function smother(){
-
-  makeAddEventText("FIRE WENT OUT", "#aaaaaa");
+  makeAddEventText("FIRE WENT OUT", "rgb(170, 170, 170, .5)");
   resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
   onFire = false;
@@ -188,20 +189,29 @@ function buttonClickable(button){
   return !button.classList.contains("disabled");
 }
 
+var maxCharcoalPile = 10;
+
 function stokeFireFunc(){
   // alert("FIRE STOKED");
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
+    numCharcoalStacked++;
 
     updateResources();
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
 
-    makeAddEventText("STOKED", "#aa0000");
+    makeAddEventText("STOKED", "rgb(170, 0, 0, .5)");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
     flareFlame(5);
-    numCharcoalStacked++;
+    if(numCharcoalStacked > maxCharcoalPile){
+      makeAddEventText("CHARCOAL OVERSPILLED", "rgb(0, 0, 0, .5)");
+      numCharcoalStacked = 0;
+      clearTimeout(fire);
+      smother();
+      fireDisplay.classList.remove("runFireAnimation");
+    }
   }
 }
 
@@ -278,7 +288,7 @@ function promptResolution(buttonChosen){
   var eventFunctionName = buttonChosen.getAttribute("data-function");
 
   window[eventFunctionName](); //possibly put in a "strength" argument depending on words of prompt
-  makeAddEventText(info, "#009900");
+  makeAddEventText(info, "rgb(0, 153, 0, .5)");
 }
 
 
@@ -350,10 +360,9 @@ function makeElementInDiv(elementName){
 var totalHistoryItems = 10;
 
 function makeAddEventText(text, eventColor){
+  // var d = document.createElement("div");
   var p = document.createElement("p");
-  // p.style.background = eventColor;
-  // p.style.opacity = (totalHistoryItems-numEvents)*(1./totalHistoryItems);
-  // var t = document.createTextNode(text);
+  p.style.background = eventColor;
   p.append(document.createTextNode(text));
   leftSide.prepend(p);
   var numEvents = leftSide.children.length;

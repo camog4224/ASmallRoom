@@ -8,7 +8,12 @@ var npcResourceGen = {
 
 function WeakEnterGoodScavenger(){
   console.log("WeakEnterGoodScavenger");
-  tabChunks.theWoods.hasForager = true;
+  if(tabChunks.theWoods.canGatherWood == true){
+    tabChunks.theWoods.canHunt = true;
+  }else{
+    tabChunks.theWoods.canGatherWood = true;
+  }
+
 }
 
 function WeakLeaveGoodScavenger(){
@@ -18,6 +23,7 @@ function WeakLeaveGoodScavenger(){
 
 function WeakEnterEvilWeaver(){
   console.log("WeakEnterEvilWeaver");
+  tabChunks.aSmallHut.canCraft = true;
 
 }
 
@@ -28,7 +34,12 @@ function WeakLeaveEvilWeaver(){
 
 function WeakEnterNeutralScavenger(){
   console.log("WeakEnterNeutralScavenger");
-  tabChunks.theWoods.hasForager = true;
+  if(tabChunks.theWoods.canGatherWood == true){
+    tabChunks.theWoods.canHunt = true;
+  }else{
+    tabChunks.theWoods.canGatherWood = true;
+  }
+
 }
 
 function WeakLeaveNeutralScavenger(){
