@@ -16,6 +16,9 @@ var chopWood = document.querySelector("#chopWood")
 
 var fireDisplay = document.querySelector("#fireDisplay");
 
+var resourceTable = document.querySelector("#resourceTable");
+var historyTable = document.querySelector("#historyTable");
+
 var eventsToggle = document.querySelector("#eventsToggle");
 var eventsToggleDiv = document.querySelector("#eventsToggleDiv");
 eventsToggleDiv.addEventListener("animationend", function(){
@@ -73,7 +76,7 @@ var tabChunks = {
   "theClearing" : {"arrived" : false}
 };
 
-var woodIncreaseIncrement = 5;
+var woodIncreaseIncrement = 10;
 
 function chopWoodFunc(){
   if(buttonClickable(chopWood) == true){
@@ -92,7 +95,7 @@ function updateResources(){
   var index = 0;
   for(var key in resourceDict){
 
-    table.rows[index].cells[1].innerHTML = resourceDict[key];
+    resourceTable.rows[index].cells[1].innerHTML = resourceDict[key];
     // var value = resourceDict[temp];
     index++;
   }
@@ -223,13 +226,13 @@ function addFireEvent(){
   }
 }
 
-var table = document.createElement("TABLE");
-table.setAttribute("class","border");
+// var resourceTable = document.createElement("TABLE");
+// resourceTable.setAttribute("class","border");
 var res = Object.keys(resourceDict);
 
 for(var i = 0; i < res.length; i++){
 
-  addRow(res[i], resourceDict[res[i]]);
+  addRow(resourceTable, res[i], resourceDict[res[i]], -1);
 }
 
 function turnOnPopup(){
@@ -340,14 +343,14 @@ function export2txt() {
   document.body.removeChild(a);
 }
 
-function addRow(name, val){
-  var row = table.insertRow(-1);
+function addRow(table, name, val, order){
+  var row = table.insertRow(order);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
   cell1.innerHTML = name;
   cell2.innerHTML = val;
 }
-rightSide.appendChild(table);
+rightSide.appendChild(resourceTable);
 
 
 function makeElementInDiv(elementName){
@@ -357,22 +360,36 @@ function makeElementInDiv(elementName){
   return divWithElement;
 }
 
-var totalHistoryItems = 10;
+var totalHistoryItems = 15;
 
 function makeAddEventText(text, eventColor){
   // var d = document.createElement("div");
-  var p = document.createElement("p");
-  p.style.background = eventColor;
-  p.append(document.createTextNode(text));
-  leftSide.prepend(p);
-  var numEvents = leftSide.children.length;
+  var curRow = historyTable.insertRow(0);
+  curRow.innerHTML = text;
+  // addRow(historyTable, "", text, 0);
+  curRow.style.background = eventColor;
+  curRow.style.width = "auto";
+  // curRow.innerHTML = "cheese";
+  // console.log(curRow.innerHTML);
+  var numEvents = historyTable.rows.length;
   for(var i = 0; i < numEvents; i++){
-    leftSide.childNodes[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
+    historyTable.rows[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
   }
   if(numEvents > totalHistoryItems){
-    leftSide.removeChild(leftSide.lastChild);
-
+    historyTable.deleteRow(-1);
   }
+  // var p = document.createElement("p");
+  // p.style.background = eventColor;
+  // p.append(document.createTextNode(text));
+  // leftSide.prepend(p);
+  // var numEvents = leftSide.children.length;
+  // for(var i = 0; i < numEvents; i++){
+  //   leftSide.childNodes[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
+  // }
+  // if(numEvents > totalHistoryItems){
+  //   leftSide.removeChild(leftSide.lastChild);
+  //
+  // }
 }
 
 
