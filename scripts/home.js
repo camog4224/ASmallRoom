@@ -13,6 +13,7 @@ var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
 
 var chopWood = document.querySelector("#chopWood")
+var huntMeat = document.querySelector("#huntMeat")
 
 var fireDisplay = document.querySelector("#fireDisplay");
 
@@ -32,9 +33,11 @@ accept.addEventListener('click', function(){
 decline.addEventListener('click', function(){
   promptResolution(decline);
 });
+
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
 chopWood.addEventListener('click', chopWoodFunc);
+huntMeat.addEventListener('click', huntMeatFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
 var numEventsQueded = 0;
@@ -84,9 +87,20 @@ function chopWoodFunc(){
     resourceDict.wood+= woodIncreaseIncrement;
     updateResources();
 
-    makeAddEventText("Wood Collected", "rgb(150, 75, 0, .5)");
+    makeAddEventText("Wood Collected", "rgb(150, 75, 0, .2)");
     cooldownButton(chopWood, 10);
 
+  }
+}
+var meatIncreaseIncrement = 10;
+
+function huntMeatFunc(){
+  if(buttonClickable(huntMeat) == true){
+    resourceDict.meat+= meatIncreaseIncrement;
+    updateResources();
+
+    makeAddEventText("Meat Collected", "rgb(255, 47, 122, .2)");
+    cooldownButton(huntMeat, 30);
   }
 }
 
@@ -135,7 +149,7 @@ function startFireFunc(){
     fire = setTimeout(smother, 5000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
 
-    makeAddEventText("FIRE STARTED", "rgb(255, 0, 0, .5)");
+    makeAddEventText("FIRE STARTED", "rgb(255, 0, 0, .2)");
 
     cooldownButton(startFire, 30);
     flareFlame(5);
@@ -181,7 +195,7 @@ function flameAnimation(){
 }
 
 function smother(){
-  makeAddEventText("FIRE WENT OUT", "rgb(170, 170, 170, .5)");
+  makeAddEventText("FIRE WENT OUT", "rgb(170, 170, 170, .2)");
   resourceDict.charcoal+= numCharcoalStacked;
   updateResources();
   onFire = false;
@@ -204,12 +218,12 @@ function stokeFireFunc(){
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
 
-    makeAddEventText("STOKED", "rgb(170, 0, 0, .5)");
+    makeAddEventText("STOKED", "rgb(170, 0, 0, .2)");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
     flareFlame(5);
     if(numCharcoalStacked > maxCharcoalPile){
-      makeAddEventText("CHARCOAL OVERSPILLED", "rgb(0, 0, 0, .5)");
+      makeAddEventText("CHARCOAL OVERSPILLED", "rgb(0, 0, 0, .2)");
       numCharcoalStacked = 0;
       clearTimeout(fire);
       smother();
@@ -232,7 +246,7 @@ var res = Object.keys(resourceDict);
 
 for(var i = 0; i < res.length; i++){
 
-  addRow(resourceTable, res[i], resourceDict[res[i]], -1);
+  addRow(resourceTable, res[i], resourceDict[res[i]]);
 }
 
 function turnOnPopup(){
@@ -291,7 +305,7 @@ function promptResolution(buttonChosen){
   var eventFunctionName = buttonChosen.getAttribute("data-function");
 
   window[eventFunctionName](); //possibly put in a "strength" argument depending on words of prompt
-  makeAddEventText(info, "rgb(0, 153, 0, .5)");
+  makeAddEventText(info, "rgb(0, 153, 0, .2)");
 }
 
 
@@ -343,8 +357,8 @@ function export2txt() {
   document.body.removeChild(a);
 }
 
-function addRow(table, name, val, order){
-  var row = table.insertRow(order);
+function addRow(table, name, val){
+  var row = table.insertRow(-1);
   var cell1 = row.insertCell(0);
   var cell2 = row.insertCell(1);
   cell1.innerHTML = name;

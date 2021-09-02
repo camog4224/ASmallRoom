@@ -83,6 +83,7 @@ html *{
 }
 
 #left{
+  font-family: 'Amarante', cursive;
   float:left;
   width: 35%;
   background: #ad7e8f;
@@ -250,4 +251,8 @@ html *{
 #historyTable{
   font-size: 20px;
   table-layout: fixed;
+}
+
+.hidden{
+  visibility: hidden;
 }
