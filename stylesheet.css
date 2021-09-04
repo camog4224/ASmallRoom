@@ -272,6 +272,8 @@ html *{
   font-size: 25px;
   table-layout: fixed;
   overflow: hidden;
+  margin: 0px;
+  width: 100%;
 }
 
 .hidden{

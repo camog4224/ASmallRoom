@@ -49,7 +49,8 @@ var numCharcoalStacked = 0;
 var onFire = false;
 
 var resourceDict = {
-  "wood" : 20
+  "wood" : 20,
+  "charcoal" : 0
 };
 
 // setTimeout(function(){
@@ -63,7 +64,6 @@ var tabChunks = {
   "aSmallHut" :
     {
     "arrived" : true,
-    "madeCharcoal" : false,
     "canCraft" : false,
     "canBuild" : false
     },
@@ -89,7 +89,7 @@ function chopWoodFunc(){
     resourceDict.wood+= woodIncreaseIncrement;
     updateResources();
 
-    makeAddEventText("Wood Collected", "rgb(150, 75, 0, .2)");
+    makeAddEventText("Wood Collected", "150, 75, 0");
     cooldownButton(chopWood, 10);
 
   }
@@ -101,7 +101,7 @@ function huntMeatFunc(){
     resourceDict.meat+= meatIncreaseIncrement;
     updateResources();
 
-    makeAddEventText("Meat Collected", "rgb(255, 47, 122, .2)");
+    makeAddEventText("Meat Collected", "255, 47, 122");
     cooldownButton(huntMeat, 30);
   }
 }
@@ -144,7 +144,7 @@ function clearCharcoalFunc(){
   updateResources();
   numCharcoalStacked = 0;
   updateCharcoalPile();
-  makeAddEventText("CHARCOAL CLEARED", "rgb(30, 30, 30, .2)");
+  makeAddEventText("CHARCOAL CLEARED", "30, 30, 30");
 }
 
 var fire;
@@ -163,7 +163,7 @@ function startFireFunc(){
     fire = setTimeout(smother, fireBurnTime*1000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
 
-    makeAddEventText("FIRE STARTED", "rgb(255, 0, 0, .2)");
+    makeAddEventText("FIRE STARTED", "255, 0, 0");
 
     cooldownButton(startFire, 30);
     flareFlame(fireBurnTime);
@@ -216,13 +216,7 @@ function flameAnimation(){
 }
 
 function smother(){
-  makeAddEventText("FIRE WENT OUT", "rgb(170, 170, 170, .2)");
-  if(tabChunks.aSmallHut.madeCharcoal == false){
-    tabChunks.aSmallHut.madeCharcoal = true;
-    resourceDict["charcoal"] = 0;
-    addRow(resourceTable, "charcoal", 0);
-    clearCharcoal.classList.remove("hidden");
-  }
+  makeAddEventText("FIRE WENT OUT", "170, 170, 170");
   onFire = false;
   clearTimeout(fireEvent);
 }
@@ -243,12 +237,12 @@ function stokeFireFunc(){
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
 
-    makeAddEventText("STOKED", "rgb(170, 0, 0, .2)");
+    makeAddEventText("STOKED", "170, 0, 0");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
     flareFlame(5);
     if(numCharcoalStacked > maxCharcoalPile){
-      makeAddEventText("CHARCOAL OVERSPILLED", "rgb(0, 0, 0, .2)");
+      makeAddEventText("CHARCOAL OVERSPILLED", "0, 0, 0");
       numCharcoalStacked = 0;
       updateCharcoalPile();
       clearTimeout(fire);
@@ -331,7 +325,7 @@ function promptResolution(buttonChosen){
   var eventFunctionName = buttonChosen.getAttribute("data-function");
 
   window[eventFunctionName](); //possibly put in a "strength" argument depending on words of prompt
-  makeAddEventText(info, "rgb(0, 153, 0, .2)");
+  makeAddEventText(info, "0, 153, 0");
 }
 
 
@@ -406,11 +400,12 @@ function makeAddEventText(text, eventColor){
   // var d = document.createElement("div");
   var curRow = historyTable.insertRow(0);
   curRow.innerHTML = text;
-  // addRow(historyTable, "", text, 0);
-  curRow.style.background = eventColor;
+  // curRow.style.background = eventColor;
+  var backgroundGradientColor = "linear-gradient(to right, rgba(" + eventColor + ", .4), rgba(" + eventColor + ", 0))"
+  console.log(backgroundGradientColor);
+  curRow.style.backgroundImage = backgroundGradientColor;
   curRow.style.width = "auto";
-  // curRow.innerHTML = "cheese";
-  // console.log(curRow.innerHTML);
+
   var numEvents = historyTable.rows.length;
   for(var i = 0; i < numEvents; i++){
     historyTable.rows[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
