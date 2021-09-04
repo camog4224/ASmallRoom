@@ -40,6 +40,20 @@ html *{
   display: none;
 }
 
+#clearCharcoal{
+  position: absolute;
+  top: calc(var(--fireRadius) * .75);
+  right: calc(var(--fireRadius) * .75);
+  width: calc(var(--fireRadius) * 1.5);
+  height: calc(var(--fireRadius) * 1.5);
+  /* transform: translate(-25%, 25%); */
+  border-radius: 100%;
+  aspect-ratio: 1 / 1;
+  margin: 0px;
+  z-index: 2;
+  background: #000000;
+}
+
 #fireDisplay{
   /* float:right; */
   /* margin:auto; */
@@ -51,13 +65,15 @@ html *{
   border-radius: 100%;
   aspect-ratio: 1 / 1;
   --timeLeft: 0s;
-  border-color: grey;
-  border-width: thin;
+  border-style: none;
+  /* border-color: grey;
+  border-width: thin; */
   background: grey;
+  z-index: 3;
 }
 
 #fireStuff{
-  --fireRadius: 50px;
+  --fireRadius: 52px;
   height: calc(var(--fireRadius) * 3);
 }
 
@@ -83,12 +99,10 @@ html *{
 }
 
 #left{
-  font-family: 'Amarante', cursive;
   float:left;
   width: 35%;
   background: #ad7e8f;
   height: 100%;
-  font-size: 20px;
 }
 
 .tabLinks{
@@ -249,8 +263,11 @@ html *{
 }
 
 #historyTable{
-  font-size: 20px;
+  /* font-family: 'VT323', monospace; */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 25px;
   table-layout: fixed;
+  overflow: hidden;
 }
 
 .hidden{

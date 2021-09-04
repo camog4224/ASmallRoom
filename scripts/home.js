@@ -11,6 +11,7 @@ var accept = document.querySelector("#accept");
 var decline = document.querySelector("#decline");
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
+var clearCharcoal = document.querySelector("#clearCharcoal");
 
 var chopWood = document.querySelector("#chopWood")
 var huntMeat = document.querySelector("#huntMeat")
@@ -36,6 +37,7 @@ decline.addEventListener('click', function(){
 
 startFire.addEventListener('click', startFireFunc);
 stokeFire.addEventListener('click', stokeFireFunc);
+clearCharcoal.addEventListener('click', clearCharcoalFunc);
 chopWood.addEventListener('click', chopWoodFunc);
 huntMeat.addEventListener('click', huntMeatFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
@@ -47,8 +49,7 @@ var numCharcoalStacked = 0;
 var onFire = false;
 
 var resourceDict = {
-  "wood" : 20,
-  "charcoal" : 0
+  "wood" : 20
 };
 
 // setTimeout(function(){
@@ -62,6 +63,7 @@ var tabChunks = {
   "aSmallHut" :
     {
     "arrived" : true,
+    "madeCharcoal" : false,
     "canCraft" : false,
     "canBuild" : false
     },
@@ -135,24 +137,34 @@ function openTab(evt, placeName) {
 
 document.getElementById("defaultOpen").click();
 
+function clearCharcoalFunc(){
+
+  resourceDict.charcoal += numCharcoalStacked;
+
+  updateResources();
+  numCharcoalStacked = 0;
+  makeAddEventText("CHARCOAL CLEARED", "rgb(30, 30, 30, .2)");
+}
+
 var fire;
 var fireEvent;
 var timeForNextFireEvent = 12000;
 var fireEventTimeIncrement = 50;
+var fireBurnTime = 15;
+var numWoodStart = 5;
 function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == true){
-    var numWoodStart = 5;
     resourceDict.wood-= numWoodStart;
     updateResources();
     onFire = true;
-    fire = setTimeout(smother, 5000);
+    fire = setTimeout(smother, fireBurnTime*1000);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
 
     makeAddEventText("FIRE STARTED", "rgb(255, 0, 0, .2)");
 
     cooldownButton(startFire, 30);
-    flareFlame(5);
+    flareFlame(fireBurnTime);
     numCharcoalStacked = numWoodStart;
     timeForNextFireEvent += fireEventTimeIncrement;
     if(tabChunks.theWoods.arrived == false){
@@ -196,8 +208,12 @@ function flameAnimation(){
 
 function smother(){
   makeAddEventText("FIRE WENT OUT", "rgb(170, 170, 170, .2)");
-  resourceDict.charcoal+= numCharcoalStacked;
-  updateResources();
+  if(tabChunks.aSmallHut.madeCharcoal == false){
+    tabChunks.aSmallHut.madeCharcoal = true;
+    resourceDict["charcoal"] = 0;
+    addRow(resourceTable, "charcoal", 0);
+    clearCharcoal.classList.remove("hidden");
+  }
   onFire = false;
   clearTimeout(fireEvent);
 }
