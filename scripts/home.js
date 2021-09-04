@@ -143,6 +143,7 @@ function clearCharcoalFunc(){
 
   updateResources();
   numCharcoalStacked = 0;
+  updateCharcoalPile();
   makeAddEventText("CHARCOAL CLEARED", "rgb(30, 30, 30, .2)");
 }
 
@@ -150,8 +151,9 @@ var fire;
 var fireEvent;
 var timeForNextFireEvent = 12000;
 var fireEventTimeIncrement = 50;
-var fireBurnTime = 15;
+var fireBurnTime = 5;
 var numWoodStart = 5;
+var charcoalSize = 0;
 function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == true){
@@ -166,12 +168,19 @@ function startFireFunc(){
     cooldownButton(startFire, 30);
     flareFlame(fireBurnTime);
     numCharcoalStacked = numWoodStart;
+    updateCharcoalPile();
     timeForNextFireEvent += fireEventTimeIncrement;
     if(tabChunks.theWoods.arrived == false){
       tabChunks.theWoods.arrived = true;
       discoverNewTab(1);
     }
   }
+}
+
+function updateCharcoalPile(){
+  charcoalSize = (numCharcoalStacked/maxCharcoalPile) * 2;
+  clearCharcoal.style.transform = "scale(" + charcoalSize + ")";
+  console.log(clearCharcoal.style.transform);
 }
 
 function discoverNewTab(tabIndex){
@@ -229,7 +238,7 @@ function stokeFireFunc(){
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
     numCharcoalStacked++;
-
+    updateCharcoalPile();
     updateResources();
     clearTimeout(fire);
     fire = setTimeout(smother, 5000);
@@ -241,6 +250,7 @@ function stokeFireFunc(){
     if(numCharcoalStacked > maxCharcoalPile){
       makeAddEventText("CHARCOAL OVERSPILLED", "rgb(0, 0, 0, .2)");
       numCharcoalStacked = 0;
+      updateCharcoalPile();
       clearTimeout(fire);
       smother();
       fireDisplay.classList.remove("runFireAnimation");

@@ -42,13 +42,16 @@ html *{
 
 #clearCharcoal{
   position: absolute;
-  top: calc(var(--fireRadius) * .75);
-  right: calc(var(--fireRadius) * .75);
-  width: calc(var(--fireRadius) * 1.5);
-  height: calc(var(--fireRadius) * 1.5);
-  /* transform: translate(-25%, 25%); */
-  border-radius: 100%;
+  /* --position : calc(var(--fireRadius) * 1.0); */
+  top: var(--fireRadius);
+  right: var(--fireRadius);
+  width: var(--fireRadius);
+  height: var(--fireRadius);
+  transform: scale(.5);
   aspect-ratio: 1 / 1;
+  border-radius: 100%;
+  border-style: none;
+  /* transform: translate(-25%, 25%); */
   margin: 0px;
   z-index: 2;
   background: #000000;
@@ -58,14 +61,15 @@ html *{
   /* float:right; */
   /* margin:auto; */
 
-  top: calc(var(--fireRadius) * 1);
-  right: calc(var(--fireRadius) * 1);
   position:absolute;
+  top: var(--fireRadius);
+  right: var(--fireRadius);
   width: var(--fireRadius);
   border-radius: 100%;
   aspect-ratio: 1 / 1;
   --timeLeft: 0s;
   border-style: none;
+  margin: 0px;
   /* border-color: grey;
   border-width: thin; */
   background: grey;
@@ -73,12 +77,12 @@ html *{
 }
 
 #fireStuff{
-  --fireRadius: 52px;
+  --fireRadius: 50px;
   height: calc(var(--fireRadius) * 3);
 }
 
 .runFireAnimation{
-  animation: fireAnimation var(--timeLeft, 0s) ease forwards;
+  animation: fireAnimation var(--timeLeft, 0s) cubic-bezier(0, .5, .5, 0) forwards;
 }
 
 @keyframes fireAnimation{
