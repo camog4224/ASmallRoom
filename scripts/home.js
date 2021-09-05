@@ -44,7 +44,7 @@ chopWood.addEventListener('click', chopWoodFunc);
 huntMeat.addEventListener('click', huntMeatFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
-var numEventsQueded = 5;
+var numEventsQueded = 0;
 
 var numCharcoalStacked = 0;
 
@@ -167,7 +167,7 @@ function startFireFunc(){
 
     makeAddEventText("FIRE STARTED", "255, 0, 0");
 
-    cooldownButton(startFire, 30);
+    cooldownButton(startFire, 10);
     flareFlame(fireBurnTime);
     numCharcoalStacked = numWoodStart;
     updateCharcoalPile();
@@ -227,7 +227,7 @@ function buttonClickable(button){
   return !button.classList.contains("disabled");
 }
 
-var maxCharcoalPile = 10;
+var maxCharcoalPile = 20;
 
 function stokeFireFunc(){
   // alert("FIRE STOKED");
@@ -396,25 +396,33 @@ function makeElementInDiv(elementName){
   return divWithElement;
 }
 
-var totalHistoryItems = 15;
+// var initialHistoryTableHeight = historyTable.offsetHeight;
 
 function makeAddEventText(text, eventColor){
-  // var d = document.createElement("div");
   var curRow = historyTable.insertRow(0);
   curRow.innerHTML = text;
-  // curRow.style.background = eventColor;
   var backgroundGradientColor = "linear-gradient(to right, rgba(" + eventColor + ", .4), rgba(" + eventColor + ", 0))"
-  // console.log(backgroundGradientColor);
   curRow.style.backgroundImage = backgroundGradientColor;
   curRow.style.width = "auto";
+  curRow.style.display = "block";
 
-  var numEvents = historyTable.rows.length;
-  for(var i = 0; i < numEvents; i++){
-    historyTable.rows[i].style.opacity = (totalHistoryItems-i)*(1./totalHistoryItems);
+  var rowsInTable = historyTable.rows.length;
+  var height = 0;
+  var totalHeight = historyTable.offsetHeight;
+  for(var i = 0; i < rowsInTable; i++){
+    var currentRow = historyTable.rows[i];
+    height += currentRow.clientHeight;
+    var trans = (totalHeight-height)*(1./totalHeight);
+    historyTable.rows[i].style.opacity = Math.max(trans,0);
+
+    // console.log(totalHeight, height, trans);
   }
-  if(numEvents > totalHistoryItems){
-    historyTable.deleteRow(-1);
-  }
+  console.log(height, totalHeight);
+    if(totalHeight-height < 75){
+      console.log("DELETED");
+      historyTable.deleteRow(-1);
+    }
+
   // var p = document.createElement("p");
   // p.style.background = eventColor;
   // p.append(document.createTextNode(text));
@@ -428,7 +436,6 @@ function makeAddEventText(text, eventColor){
   //
   // }
 }
-
 
 // button.addEventListener('click', doThing);
 // canvas = document.querySelector('#canvas');
