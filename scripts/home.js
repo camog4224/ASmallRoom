@@ -418,7 +418,7 @@ function makeAddEventText(text, eventColor){
     // console.log(totalHeight, height, trans);
   }
   console.log(height, totalHeight);
-    if(totalHeight-height < 75){
+    if(totalHeight-height < historyTable.rows[rowsInTable-1].clientHeight * 1.1){
       console.log("DELETED");
       historyTable.deleteRow(-1);
     }
