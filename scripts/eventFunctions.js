@@ -8,10 +8,12 @@ var npcResourceGen = {
 
 function ScavengerHeirarchy(){
   if(tabChunks.theWoods.canGatherWood == true){
-    tabChunks.theWoods.canHunt = true;
-    resourceDict["meat"] = 0;
-    addRow(resourceTable, "meat", 0);
-    huntMeat.classList.remove("hidden");
+    if(tabChunks.theWoods.canHunt == false){
+      tabChunks.theWoods.canHunt = true;
+      resourceDict["meat"] = 0;
+      addRow(resourceTable, "meat", 0);
+      huntMeat.classList.remove("hidden");
+    }
   }else{
     tabChunks.theWoods.canGatherWood = true;
     chopWood.classList.remove("hidden");
@@ -32,7 +34,7 @@ function WeakLeaveGoodScavenger(){
 function WeakEnterEvilWeaver(){
   console.log("WeakEnterEvilWeaver");
   tabChunks.aSmallHut.canCraft = true;
-
+  craftingStuff.classList.remove("hidden");
 }
 
 function WeakLeaveEvilWeaver(){

@@ -21,6 +21,8 @@ var fireDisplay = document.querySelector("#fireDisplay");
 var resourceTable = document.querySelector("#resourceTable");
 var historyTable = document.querySelector("#historyTable");
 
+var craftingStuff = document.querySelector("#craftingStuff");
+
 var eventsToggle = document.querySelector("#eventsToggle");
 var eventsToggleDiv = document.querySelector("#eventsToggleDiv");
 eventsToggleDiv.addEventListener("animationend", function(){
@@ -42,7 +44,7 @@ chopWood.addEventListener('click', chopWoodFunc);
 huntMeat.addEventListener('click', huntMeatFunc);
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
-var numEventsQueded = 0;
+var numEventsQueded = 5;
 
 var numCharcoalStacked = 0;
 
@@ -149,8 +151,8 @@ function clearCharcoalFunc(){
 
 var fire;
 var fireEvent;
-var timeForNextFireEvent = 12000;
-var fireEventTimeIncrement = 50;
+var timeForNextFireEvent = 5000;
+var fireEventTimeIncrement = 1000;
 var fireBurnTime = 5;
 var numWoodStart = 5;
 var charcoalSize = 0;
@@ -180,7 +182,7 @@ function startFireFunc(){
 function updateCharcoalPile(){
   charcoalSize = (numCharcoalStacked/maxCharcoalPile) * 2;
   clearCharcoal.style.transform = "scale(" + charcoalSize + ")";
-  console.log(clearCharcoal.style.transform);
+
 }
 
 function discoverNewTab(tabIndex){
@@ -402,7 +404,7 @@ function makeAddEventText(text, eventColor){
   curRow.innerHTML = text;
   // curRow.style.background = eventColor;
   var backgroundGradientColor = "linear-gradient(to right, rgba(" + eventColor + ", .4), rgba(" + eventColor + ", 0))"
-  console.log(backgroundGradientColor);
+  // console.log(backgroundGradientColor);
   curRow.style.backgroundImage = backgroundGradientColor;
   curRow.style.width = "auto";
 

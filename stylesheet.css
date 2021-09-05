@@ -58,9 +58,6 @@ html *{
 }
 
 #fireDisplay{
-  /* float:right; */
-  /* margin:auto; */
-
   position:absolute;
   top: var(--fireRadius);
   right: var(--fireRadius);
@@ -79,6 +76,7 @@ html *{
 #fireStuff{
   --fireRadius: 50px;
   height: calc(var(--fireRadius) * 3);
+  flex-shrink: 0;
 }
 
 .runFireAnimation{
@@ -116,7 +114,8 @@ html *{
 
 #aSmallHut{
   background:#dede95;
-
+  flex-direction: column;
+  display: flex;
 }
 
 #theWoods{
@@ -140,7 +139,7 @@ html *{
 }
 
 #allStuff{
-  height:50%;
+  height:75%;
 }
 
 #middle{
@@ -155,6 +154,7 @@ html *{
   /* position: absolute; */
   float: left;
   display: flex;
+  flex-direction: row;
   width: 100%;
   height: var(--tabBarHeight);
   background: #23ddaa;
@@ -278,4 +278,22 @@ html *{
 
 .hidden{
   visibility: hidden;
+}
+
+#craftingStuff{
+  flex-grow: 1;
+}
+
+#leftCrafting{
+  float:left;
+  width:50%;
+  /* background: #ff0000; */
+  height: 100%;
+}
+
+#rightCrafting{
+  float:left;
+  width:50%;
+  /* background: #0000ff; */
+  height: 100%;
 }
