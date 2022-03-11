@@ -151,7 +151,7 @@ function clearCharcoalFunc(){
 
 var fire;
 var fireEvent;
-var timeForNextFireEvent = 5000;
+var timeForNextFireEvent = 50000;
 var fireEventTimeIncrement = 1000;
 var fireBurnTime = 5;
 var numWoodStart = 5;
@@ -168,7 +168,7 @@ function startFireFunc(){
     makeAddEventText("FIRE STARTED", "255, 0, 0");
 
     cooldownButton(startFire, 10);
-    flareFlame(fireBurnTime);
+    flareFlame(fireBurnTime, 0);
     numCharcoalStacked = numWoodStart;
     updateCharcoalPile();
     timeForNextFireEvent += fireEventTimeIncrement;
@@ -205,8 +205,9 @@ function cooldownButton(button, cooldownTime){
 
 }
 
-function flareFlame(timeToFlare){
+function flareFlame(timeToFlare, timeShift){
   fireDisplay.style.setProperty("--timeLeft", timeToFlare + "s");
+  fireDisplay.style.setProperty("--timeShift", timeShift + "s");
   flameAnimation();
 }
 
@@ -242,7 +243,7 @@ function stokeFireFunc(){
     makeAddEventText("STOKED", "170, 0, 0");
     // stokeFire.classList.add("cooldown");
     cooldownButton(stokeFire, 1);
-    flareFlame(5);
+    flareFlame(5, -2);
     if(numCharcoalStacked > maxCharcoalPile){
       makeAddEventText("CHARCOAL OVERSPILLED", "0, 0, 0");
       numCharcoalStacked = 0;
@@ -304,8 +305,8 @@ function fillPopupWithEventInfo(){
     var chosenLevel = 0;
     var chosenLevelName = levelNames[chosenLevel];
     var numDifPeople = randomEvents.Single[chosenLevelName].length;
-    var chosenPerson = Math.floor(Math.random()*numDifPeople);
-    var personData = randomEvents.Single[chosenLevelName][chosenPerson];
+    var chosenPersonIndex = Math.floor(Math.random()*numDifPeople);
+    var personData = randomEvents.Single[chosenLevelName][chosenPersonIndex];
     // console.log(personData);
 
     prompt.innerHTML = personData.Prompt;
@@ -417,7 +418,7 @@ function makeAddEventText(text, eventColor){
 
     // console.log(totalHeight, height, trans);
   }
-  console.log(height, totalHeight);
+  // console.log(height, totalHeight);
     if(totalHeight-height < historyTable.rows[rowsInTable-1].clientHeight * 1.1){
       console.log("DELETED");
       historyTable.deleteRow(-1);
