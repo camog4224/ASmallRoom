@@ -94,7 +94,7 @@ html *{
   0%{background:grey;transform: scale(1);}
   25%{background:yellow;}
   50%{background:red;transform: scale(3);}
-  100%{background:yellow;}
+  75%{background:yellow;}
   100%{background:grey;transform: scale(1);}
 }
 

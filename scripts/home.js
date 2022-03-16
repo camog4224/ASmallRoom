@@ -153,22 +153,25 @@ var fire;
 var fireEvent;
 var timeForNextFireEvent = 50000;
 var fireEventTimeIncrement = 1000;
-var fireBurnTime = 5;
+var fireBurnTime = 5000;
 var numWoodStart = 5;
 var charcoalSize = 0;
+
+var fireStartTime = 0;
 function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == true){
     resourceDict.wood-= numWoodStart;
     updateResources();
     onFire = true;
-    fire = setTimeout(smother, fireBurnTime*1000);
+    fire = setTimeout(smother, fireBurnTime);
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
-
+    fireStartTime = Date.now();
+    // console.log(fireStartTime);
     makeAddEventText("FIRE STARTED", "255, 0, 0");
 
     cooldownButton(startFire, 10);
-    flareFlame(fireBurnTime, 0);
+    flareFlame(fireBurnTime/1000, 0);
     numCharcoalStacked = numWoodStart;
     updateCharcoalPile();
     timeForNextFireEvent += fireEventTimeIncrement;
@@ -206,8 +209,9 @@ function cooldownButton(button, cooldownTime){
 }
 
 function flareFlame(timeToFlare, timeShift){
-  fireDisplay.style.setProperty("--timeLeft", timeToFlare + "s");
   fireDisplay.style.setProperty("--timeShift", timeShift + "s");
+  fireDisplay.style.setProperty("--timeLeft", timeToFlare + "s");
+  // fireDisplay.style["--timeShift", timeShift + "s"];
   flameAnimation();
 }
 
@@ -230,29 +234,39 @@ function buttonClickable(button){
 
 var maxCharcoalPile = 20;
 
+var fireTimeLeft = 0;
+
 function stokeFireFunc(){
-  // alert("FIRE STOKED");
+
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
     numCharcoalStacked++;
     updateCharcoalPile();
     updateResources();
-    clearTimeout(fire);
-    fire = setTimeout(smother, 5000);
-
-    makeAddEventText("STOKED", "170, 0, 0");
-    // stokeFire.classList.add("cooldown");
-    cooldownButton(stokeFire, 1);
-    flareFlame(5, -2);
-    if(numCharcoalStacked > maxCharcoalPile){
-      makeAddEventText("CHARCOAL OVERSPILLED", "0, 0, 0");
-      numCharcoalStacked = 0;
-      updateCharcoalPile();
+    fireTimeLeft = fireStartTime + fireBurnTime - Date.now();
+    console.log("STOKED CORRECTLY");
+    if(fireTimeLeft < fireBurnTime/2){
       clearTimeout(fire);
-      smother();
-      fireDisplay.classList.remove("runFireAnimation");
-    }
+      fire = setTimeout(smother, fireBurnTime);
+
+      makeAddEventText("STOKED", "170, 0, 0");
+
+      cooldownButton(stokeFire, 1);
+      flareFlame(fireBurnTime/1000, -fireTimeLeft/1000);
+
+      fireStartTime = fireStartTime + 2*(Date.now() - (fireStartTime + fireBurnTime/2));
+      if(numCharcoalStacked > maxCharcoalPile){
+        makeAddEventText("CHARCOAL OVERSPILLED", "0, 0, 0");
+        numCharcoalStacked = 0;
+        updateCharcoalPile();
+        clearTimeout(fire);
+        smother();
+        fireDisplay.classList.remove("runFireAnimation");
+      }
+  }else{
+    makeAddEventText("STOKED TOO SOON", "170, 0, 0");
   }
+}
 }
 
 function addFireEvent(){
