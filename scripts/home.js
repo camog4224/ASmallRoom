@@ -89,6 +89,7 @@ function chopWoodFunc(){
   if(buttonClickable(chopWood) == true){
 
     resourceDict.wood+= woodIncreaseIncrement;
+    trailOff(chopWood, "+10 wood");
     updateResources();
 
     makeAddEventText("Wood Collected", "150, 75, 0");
@@ -101,6 +102,7 @@ var meatIncreaseIncrement = 10;
 function huntMeatFunc(){
   if(buttonClickable(huntMeat) == true){
     resourceDict.meat+= meatIncreaseIncrement;
+    trailOff(huntMeat, "+30 meat");
     updateResources();
 
     makeAddEventText("Meat Collected", "255, 47, 122");
@@ -151,7 +153,7 @@ function clearCharcoalFunc(){
 
 var fire;
 var fireEvent;
-var timeForNextFireEvent = 50000;
+var timeForNextFireEvent = 5000;
 var fireEventTimeIncrement = 1000;
 var fireBurnTime = 5000;
 var numWoodStart = 5;
@@ -162,6 +164,7 @@ function startFireFunc(){
 
   if(onFire == false && resourceDict.wood > 0 && buttonClickable(startFire) == true){
     resourceDict.wood-= numWoodStart;
+    trailOff(startFire, "-" + numWoodStart + " wood");
     updateResources();
     onFire = true;
     fire = setTimeout(smother, fireBurnTime);
@@ -183,7 +186,7 @@ function startFireFunc(){
 }
 
 function updateCharcoalPile(){
-  charcoalSize = (numCharcoalStacked/maxCharcoalPile) * 2;
+  charcoalSize = (numCharcoalStacked/maxCharcoalPile) * 3;
   clearCharcoal.style.transform = "scale(" + charcoalSize + ")";
 
 }
@@ -205,6 +208,20 @@ function cooldownButton(button, cooldownTime){
   });
   button.appendChild(cooldownDiv);
   button.classList.add("disabled");
+
+}
+
+function trailOff(button, text){
+  var trailOffDiv = document.createElement("DIV");
+  trailOffDiv.innerHTML = text;
+  trailOffDiv.classList.add("blurb");
+  trailOffDiv.addEventListener("animationend", function(){
+
+    trailOffDiv.remove();
+
+  });
+  button.appendChild(trailOffDiv);
+
 
 }
 
@@ -241,6 +258,7 @@ function stokeFireFunc(){
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
     numCharcoalStacked++;
+    trailOff(stokeFire, "-1 wood, +1 charcoal");
     updateCharcoalPile();
     updateResources();
     fireTimeLeft = fireStartTime + fireBurnTime - Date.now();

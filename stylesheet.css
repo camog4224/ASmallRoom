@@ -35,6 +35,18 @@ html *{
   position: relative;
 }
 
+/* tihs is a small notificaiton for additions to resources/nps etc */
+.blurb{
+  z-index: 3;
+  position: relative;
+  animation: trailOff 1.5s linear forwards;
+}
+
+@keyframes trailOff {
+  0%{transform: translate(70%, 0%);opacity: 90%;}
+  100%{transform: translate(140%, 50%);opacity: 20%;}
+}
+
 #cover{
   position: fixed;
   top: 0;
