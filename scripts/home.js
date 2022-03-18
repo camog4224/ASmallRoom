@@ -144,11 +144,11 @@ document.getElementById("defaultOpen").click();
 function clearCharcoalFunc(){
 
   resourceDict.charcoal += numCharcoalStacked;
-
+  trailOff(fireDisplay, "+" + numCharcoalStacked + " charcoal");
   updateResources();
   numCharcoalStacked = 0;
   updateCharcoalPile();
-  makeAddEventText("CHARCOAL CLEARED", "30, 30, 30");
+  // makeAddEventText("CHARCOAL CLEARED", "30, 30, 30");
 }
 
 var fire;
@@ -171,7 +171,7 @@ function startFireFunc(){
     fireEvent = setInterval(addFireEvent, timeForNextFireEvent);
     fireStartTime = Date.now();
     // console.log(fireStartTime);
-    makeAddEventText("FIRE STARTED", "255, 0, 0");
+    // makeAddEventText("FIRE STARTED", "255, 0, 0");
 
     cooldownButton(startFire, 10);
     flareFlame(fireBurnTime/1000, 0);
@@ -211,7 +211,7 @@ function cooldownButton(button, cooldownTime){
 
 }
 
-function trailOff(button, text){
+function trailOff(parentElement, text){
   var trailOffDiv = document.createElement("DIV");
   trailOffDiv.innerHTML = text;
   trailOffDiv.classList.add("blurb");
@@ -220,7 +220,7 @@ function trailOff(button, text){
     trailOffDiv.remove();
 
   });
-  button.appendChild(trailOffDiv);
+  parentElement.appendChild(trailOffDiv);
 
 
 }
@@ -258,7 +258,7 @@ function stokeFireFunc(){
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){
     resourceDict.wood--;
     numCharcoalStacked++;
-    trailOff(stokeFire, "-1 wood, +1 charcoal");
+    trailOff(stokeFire, "-1 wood");
     updateCharcoalPile();
     updateResources();
     fireTimeLeft = fireStartTime + fireBurnTime - Date.now();
@@ -267,7 +267,7 @@ function stokeFireFunc(){
       clearTimeout(fire);
       fire = setTimeout(smother, fireBurnTime);
 
-      makeAddEventText("STOKED", "170, 0, 0");
+      // makeAddEventText("STOKED", "170, 0, 0");
 
       cooldownButton(stokeFire, 1);
       flareFlame(fireBurnTime/1000, -fireTimeLeft/1000);

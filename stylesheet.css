@@ -43,8 +43,8 @@ html *{
 }
 
 @keyframes trailOff {
-  0%{transform: translate(70%, 0%);opacity: 90%;}
-  100%{transform: translate(140%, 50%);opacity: 20%;}
+  0%{transform: translate(70%, 0px);opacity: 90%;}
+  100%{transform: translate(calc(70% + 30px), 20px);opacity: 20%;}
 }
 
 #cover{
