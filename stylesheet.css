@@ -1,6 +1,9 @@
 html *{
   user-select: none !important;
+}
 
+html {
+  background: #fffddd;
 }
 
 .button{
@@ -131,7 +134,7 @@ html *{
 #left{
   float:left;
   width: 35%;
-  background: #ad7e8f;
+  /* background: #fffddd; */
   height: 100%;
 }
 
@@ -141,7 +144,7 @@ html *{
 }
 
 #aSmallHut{
-  background:#dede95;
+  /* background:#ffffcc; */
   flex-direction: column;
   display: flex;
 }
@@ -155,19 +158,19 @@ html *{
 }
 
 #theClearing{
-  background:#d0fe90;
+  background:#fffffc;
 }
 
 #right{
   float:right;
   width: 15%;
   height: 100%;
-  background:#d4a4a4;
+  /* background:#eeeecc; */
   /* transition: background 2s; */
 }
 
 #allStuff{
-  height:75%;
+  height:100%;
 }
 
 #middle{
@@ -185,7 +188,7 @@ html *{
   flex-direction: row;
   width: 100%;
   height: var(--tabBarHeight);
-  background: #23ddaa;
+  /* background: #fffccc; */
   z-index: 5;
   align-items: center;
   /* visibility: visible; */
@@ -295,9 +298,9 @@ html *{
 }
 
 #historyTable{
-  /* font-family: 'VT323', monospace; */
-  font-family: 'Press Start 2P', cursive;
-  font-size: 25px;
+  font-family: 'Caveat Brush', cursive;
+
+  font-size: 30px;
   table-layout: fixed;
   overflow: visible;
   margin: 0px;
