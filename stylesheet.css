@@ -30,9 +30,18 @@ html *{
 }
 
 /* this text box should jutt out from the buttom to the right */
-.craftingDescription{
-  z-index: 3;
+
+.dropDownInfo {
+  display: none;
   position: relative;
+  top: 20px;
+  left: 50px;
+  background-color: #5959f9;
+  z-index: 2;
+}
+
+.button:hover .dropDownInfo {
+  display: block;
 }
 
 /* tihs is a small notificaiton for additions to resources/nps etc */
