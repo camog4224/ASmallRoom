@@ -34,12 +34,13 @@
 
             <div id = "startFire" class = "border button" role = "button">
               Start Fire
-              <div class = "dropDownInfo">THIS IS INFO</div>
+              <div class = "tooltip border">5 Wood</div>
             </div>
 
 
             <div id = "stokeFire" class = "border button"  role = "button">
               Stoke Fire
+              <div class = "tooltip border">1 Wood</div>
             </div>
 
 
@@ -47,11 +48,20 @@
           <div id = "craftingStuff" class = "hidden">
             <div id = "leftCrafting">
               <div>
-                <div class = "border button"  role = "button">Hut</div>
-                <!-- <div class = "border craftingDescription hidden"> THIS IS A DESCRIPTION</div> -->
+                <div class = "border button"  role = "button" onclick="hutCraft()">
+                  Hut
+                  <div class = "tooltip border">20 Wood</div>
+                </div>
+
               </div>
-              <div class = "border button"  role = "button">Log Home</div>
-              <div class = "border button"  role = "button">Mansion</div>
+              <div class = "border button"  role = "button" onclick="logHomeCraft()">
+                Log Home
+                <div class = "tooltip border">50 Wood</div>
+              </div>
+              <div class = "border button"  role = "button" onclick="mansionCraft()">
+                Mansion
+                <div class = "tooltip border">500 Wood</div>
+              </div>
             </div>
             <div id = "rightCrafting">
 
@@ -59,10 +69,14 @@
           </div>
         </div>
         <div id = "theWoods" class = "tabContent">
-          <div id = "chopWood" class = "border button hidden" role = "button  ">Chop Wood
-
+          <div id = "chopWood" class = "border button hidden" role = "button  ">
+            Chop Wood
+            <div class = "tooltip border">10 Wood</div>
           </div>
-          <div id = "huntMeat" class = "border button hidden" role = "button  ">Hunt Meat</div>
+          <div id = "huntMeat" class = "border button hidden" role = "button  ">
+            Hunt Meat
+            <div class = "tooltip border">5 Meat</div>
+          </div>
         </div>
         <div id = "theRiver" class = "tabContent"> The River</div>
         <div id = "theClearing" class = "tabContent">

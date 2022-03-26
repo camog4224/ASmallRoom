@@ -253,6 +253,18 @@ var maxCharcoalPile = 20;
 
 var fireTimeLeft = 0;
 
+function hutCraft(){
+  console.log("CRAFTED HUT");
+}
+
+function logHomeCraft(){
+  console.log("CRAFTED LOGHOME");
+}
+
+function mansionCraft(){
+  console.log("CRAFTED MANSION");
+}
+
 function stokeFireFunc(){
 
   if(onFire == true && resourceDict.wood > 0 && buttonClickable(stokeFire) == true){

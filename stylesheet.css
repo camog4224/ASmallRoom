@@ -8,7 +8,7 @@ html *{
   height: 30px;
   position: relative;
   background:white;
-  z-index: 3;
+  /* z-index: 3; */
   user-select: none;
   margin: 10px;
   text-align: center;
@@ -31,16 +31,16 @@ html *{
 
 /* this text box should jutt out from the buttom to the right */
 
-.dropDownInfo {
+.tooltip {
+  z-index: 999;
   display: none;
   position: relative;
-  top: 20px;
-  left: 50px;
-  background-color: #5959f9;
-  z-index: 2;
+  margin: 0 auto;
+  top: 50%;
+  background-color: #eeeeee;
 }
 
-.button:hover .dropDownInfo {
+.button:hover .tooltip {
   display: block;
 }
 
