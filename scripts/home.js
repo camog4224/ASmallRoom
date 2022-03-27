@@ -120,6 +120,8 @@ function updateResources(){
   }
 }
 
+var radios = document.getElementsByName("toggleState");
+
 function openTab(evt, placeName) {
   var i, tabContent, tabLinks;
   tabContent = document.getElementsByClassName("tabContent");
@@ -324,13 +326,27 @@ for(var i = 0; i < res.length; i++){
   addRow(resourceTable, res[i], resourceDict[res[i]]);
 }
 
+function checkToggleValue(){
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      // do whatever you want with the checked radio
+      return radios[i].value;
+    }
+  }
+}
+
 function turnOnPopup(){
   if(eventsToggle.checked == false){
     popup.classList.add('poppedUp');
     cover.classList.add('poppedUp');
   }else{
     eventsToggleDiv.classList.add('runEventMissed');
-    promptResolution(decline);
+    if(checkToggleValue() === "accept"){
+      promptResolution(accept);
+    }else{
+      promptResolution(decline);
+    }
+
   }
 
 }

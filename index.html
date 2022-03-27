@@ -8,13 +8,16 @@
   </head>
   <body>
     <div id = "eventsToggleDiv">
-      <input type="radio" id="on" name="eventToggleState" value="on">
-      <label for="html">TEST 1</label><br>
-      <input type="radio" id="off" name="eventToggleState" value="off">
-      <label for="css">TEST 2</label><br>
-
-      <input type = "checkbox" id = "eventsToggle" name = "eventsToggle" value = "eventsToggle">
-      <label for = "eventsToggle">toggle for event pop ups</label>
+      <table>
+        <tr>
+          <td>
+            <input type = "checkbox" id = "eventsToggle" name = "eventsToggle" value = "eventsToggle">
+            <label for = "eventsToggle">toggle pop ups</label>
+            <input type="radio" name="toggleState" value="accept" checked = "checked">Auto Accept
+            <input type="radio" name="toggleState" value="decline">Auto Reject
+          </td>
+        </tr>
+      </table>
     </div>
     <div id = "allStuff">
       <div id = "left">
