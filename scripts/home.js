@@ -11,6 +11,7 @@ var accept = document.querySelector("#accept");
 var decline = document.querySelector("#decline");
 var startFire = document.querySelector("#startFire");
 var stokeFire = document.querySelector("#stokeFire");
+var gatherSticks = document.querySelector("#gatherSticks");
 var clearCharcoal = document.querySelector("#clearCharcoal");
 
 var chopWood = document.querySelector("#chopWood")
@@ -252,6 +253,15 @@ function buttonClickable(button){
 var maxCharcoalPile = 20;
 
 var fireTimeLeft = 0;
+
+function gatherSticksFunc(){
+  if(buttonClickable(gatherSticks)){
+    resourceDict.wood++;
+    updateResources();
+    cooldownButton(gatherSticks, 2);
+    trailOff(gatherSticks, "+1 wood");
+  }
+}
 
 function hutCraft(){
   console.log("CRAFTED HUT");

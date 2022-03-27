@@ -18,9 +18,10 @@ html {
 }
 
 .cooldown{
-  z-index: -1;
+  z-index: 0;
   position:absolute;
   background: #777777;
+  opacity: .5;
   height:100%;
   width:100%;
   --timeToCooldown: 5s;
@@ -150,11 +151,11 @@ html {
 }
 
 #theWoods{
-  background:#00eeee;
+  background:#C4A484;
 }
 
 #theRiver{
-  background:#ff0095;
+  background:#00eeee;
 }
 
 #theClearing{
@@ -298,6 +299,8 @@ html {
 }
 
 #historyTable{
+  /* font-family: 'Press Start 2P', cursive; */
+  /* font-family: 'VT323', monospace; */
   font-family: 'Caveat Brush', cursive;
 
   font-size: 30px;
