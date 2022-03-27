@@ -38,11 +38,9 @@ decline.addEventListener('click', function(){
   promptResolution(decline);
 });
 
-startFire.addEventListener('click', startFireFunc);
-stokeFire.addEventListener('click', stokeFireFunc);
+
 clearCharcoal.addEventListener('click', clearCharcoalFunc);
-chopWood.addEventListener('click', chopWoodFunc);
-huntMeat.addEventListener('click', huntMeatFunc);
+
 // fireDisplay.addEventListener("animationend", flameAnimation());
 
 var numEventsQueded = 0;

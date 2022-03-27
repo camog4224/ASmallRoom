@@ -27,17 +27,17 @@
         </div>
         <div id = "aSmallHut" class = "tabContent">
           <div id = "fireStuff">
-            <div id = "clearCharcoal" class = "border button"  role = "button">
+            <div id = "clearCharcoal" class = "border button" role = "button">
 
             </div>
             <div id = "fireDisplay" class = "border runFireAnimation"></div>
 
-            <div id = "startFire" class = "border button" role = "button">
+            <div id = "startFire" class = "border button" role = "button" onclick="startFireFunc()">
               Start Fire
               <div class = "tooltip border">5 Wood</div>
             </div>
 
-            <div id = "stokeFire" class = "border button"  role = "button">
+            <div id = "stokeFire" class = "border button"  role = "button" onclick="stokeFireFunc()">
               Stoke Fire
               <div class = "tooltip border">1 Wood</div>
             </div>
@@ -68,11 +68,11 @@
           </div>
         </div>
         <div id = "theWoods" class = "tabContent">
-          <div id = "chopWood" class = "border button hidden" role = "button  ">
+          <div id = "chopWood" class = "border button hidden" role = "button  " onclick="chopWoodFunc()">
             Chop Wood
             <div class = "tooltip border">10 Wood</div>
           </div>
-          <div id = "huntMeat" class = "border button hidden" role = "button  ">
+          <div id = "huntMeat" class = "border button hidden" role = "button  " onclick="huntMeatFunc()">
             Hunt Meat
             <div class = "tooltip border">5 Meat</div>
           </div>
